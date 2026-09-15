@@ -3,30 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Zir081 Mini Game</title>
 
 <style>
+*{box-sizing:border-box}
 
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
     margin:0;
     min-height:100vh;
     font-family:Arial,sans-serif;
     color:white;
-
     background:
         radial-gradient(circle at 15% 15%,rgba(120,20,20,.16),transparent 28%),
         radial-gradient(circle at 85% 20%,rgba(20,100,45,.13),transparent 25%),
         linear-gradient(135deg,#05070b,#090c12 45%,#071009);
-
     overflow-x:hidden;
 }
 
@@ -36,76 +28,49 @@ body::before{
     inset:0;
     pointer-events:none;
     opacity:.12;
-
     background-image:
         linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
         linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-
     background-size:40px 40px;
     z-index:-1;
 }
 
-
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
     height:82px;
-
     position:sticky;
     top:0;
     z-index:50;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     padding:0 25px;
-
     background:rgba(4,7,10,.76);
     backdrop-filter:blur(16px);
-
     border-bottom:1px solid rgba(255,255,255,.06);
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.35);
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
 }
 
 .logo{
     font-size:34px;
     font-weight:1000;
     letter-spacing:-1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #7a1010,
-            #123d19
-        );
-
+    background:linear-gradient(90deg,#7a1010,#123d19);
     -webkit-background-clip:text;
     background-clip:text;
-
     color:transparent;
-
-    text-shadow:
-        0 0 20px rgba(120,20,20,.15);
+    text-shadow:0 0 20px rgba(120,20,20,.15);
 }
 
 .gems{
     position:absolute;
-
     right:25px;
     top:50%;
-
     transform:translateY(-50%);
-
     display:flex;
     align-items:center;
-
     gap:8px;
-
     font-size:30px;
     font-weight:1000;
 }
@@ -113,15 +78,11 @@ header{
 .gem{
     width:30px;
     height:30px;
-
     object-fit:contain;
     vertical-align:middle;
 }
 
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
     max-width:1200px;
@@ -131,26 +92,14 @@ header{
 
 .heroBar{
     min-height:74px;
-
     border:1px solid rgba(255,255,255,.07);
     border-radius:20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.05),
-            rgba(255,255,255,.015)
-        );
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.28);
-
+    background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    box-shadow:0 15px 50px rgba(0,0,0,.28);
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     gap:20px;
-
     padding:18px 22px;
 }
 
@@ -169,118 +118,67 @@ header{
 .active{
     display:flex;
     align-items:center;
-
     gap:8px;
-
     padding:9px 13px;
-
     border-radius:999px;
-
     font-size:12px;
     font-weight:900;
-
     background:rgba(50,180,90,.10);
-
     border:1px solid rgba(80,220,120,.2);
 }
 
 .activeDot{
     width:8px;
     height:8px;
-
     border-radius:50%;
-
     background:#4ade80;
-
-    box-shadow:
-        0 0 12px #4ade80;
+    box-shadow:0 0 12px #4ade80;
 }
 
-
-/* =========================
-   LAYOUT
-========================= */
+/* LAYOUT */
 
 .layout{
     max-width:1200px;
-
     margin:25px auto 60px;
-
     padding:0 20px;
-
     display:grid;
-
-    grid-template-columns:
-        1fr 330px;
-
+    grid-template-columns:1fr 330px;
     gap:25px;
 }
 
-
-/* =========================
-   GAME
-========================= */
+/* GAME */
 
 .game{
     min-height:760px;
-
     position:relative;
     overflow:hidden;
-
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(10,14,21,.95),
-            rgba(6,10,14,.95)
-        );
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
+    background:linear-gradient(180deg,rgba(10,14,21,.95),rgba(6,10,14,.95));
+    border:1px solid rgba(255,255,255,.06);
     border-radius:26px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.38),
-        inset 0 1px 0 rgba(255,255,255,.03);
+    box-shadow:0 25px 70px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.03);
 }
 
 .game::before{
     content:"";
-
     position:absolute;
-
     width:500px;
     height:500px;
-
     border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(70,180,90,.08),
-            transparent 65%
-        );
-
+    background:radial-gradient(circle,rgba(70,180,90,.08),transparent 65%);
     top:50%;
     left:50%;
-
-    transform:
-        translate(-50%,-50%);
-
+    transform:translate(-50%,-50%);
     pointer-events:none;
 }
 
 .stage{
     position:relative;
     z-index:1;
-
     margin:0 0 8px;
-
     font-size:32px;
     font-weight:1000;
 }
@@ -288,228 +186,144 @@ header{
 .hint{
     position:relative;
     z-index:1;
-
     color:#94a0ae;
-
     margin-bottom:25px;
-
     text-align:center;
 }
 
 .character{
     position:relative;
     z-index:1;
-
     width:420px;
     height:420px;
-
     object-fit:contain;
-
     cursor:pointer;
     user-select:none;
-
     transition:.12s;
-
     filter:
         drop-shadow(0 20px 30px rgba(0,0,0,.55))
         drop-shadow(0 0 18px rgba(80,180,100,.08));
 }
 
-.character:hover{
-    transform:scale(1.04);
-}
-
-.character:active{
-    transform:scale(.93);
-}
+.character:hover{transform:scale(1.04)}
+.character:active{transform:scale(.93)}
 
 .power{
     position:relative;
     z-index:1;
-
     margin-top:18px;
-
     font-size:20px;
     font-weight:1000;
-
     display:flex;
-
     align-items:center;
-
     gap:5px;
 }
 
-
-/* =========================
-   PROGRESS BAR
-========================= */
+/* PROGRESS */
 
 .progressBox{
     position:relative;
     z-index:1;
-
     width:min(430px,85%);
-
     margin-top:16px;
 }
 
 .progressTop{
     display:flex;
-
     align-items:center;
     justify-content:space-between;
-
     gap:10px;
-
     margin-bottom:7px;
-
     color:#9da8b6;
-
     font-size:12px;
     font-weight:900;
 }
 
-.progressTitle{
-    color:#dfe6ed;
-}
-
-.progressNumber{
-    color:#8895a3;
-}
+.progressTitle{color:#dfe6ed}
+.progressNumber{color:#8895a3}
 
 .progressTrack{
     width:100%;
     height:12px;
-
     overflow:hidden;
-
     background:#101820;
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
+    border:1px solid rgba(255,255,255,.07);
     border-radius:999px;
-
-    box-shadow:
-        inset 0 2px 8px rgba(0,0,0,.45);
+    box-shadow:inset 0 2px 8px rgba(0,0,0,.45);
 }
 
 .progressFill{
     width:0%;
     height:100%;
-
     border-radius:999px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #4b1010,
-            #7a1d1d 45%,
-            #183d20
-        );
-
-    box-shadow:
-        0 0 15px rgba(70,170,90,.25);
-
-    transition:
-        width .3s ease;
+    background:linear-gradient(90deg,#4b1010,#7a1d1d 45%,#183d20);
+    box-shadow:0 0 15px rgba(70,170,90,.25);
+    transition:width .3s ease;
 }
 
 .progressSmall{
     margin-top:6px;
-
     text-align:center;
-
     color:#6f7b88;
-
     font-size:11px;
 }
 
-
-/* =========================
-   SHOP
-========================= */
+/* SHOP */
 
 .shop{
     background:rgba(8,12,18,.92);
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
+    border:1px solid rgba(255,255,255,.06);
     border-radius:26px;
-
     padding:18px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
 .shop h2{
     margin:0 0 17px;
-
     font-size:24px;
 }
 
 .item{
     padding:14px;
-
     margin-bottom:14px;
-
     border-radius:18px;
-
-    background:
-        rgba(20,27,37,.8);
-
-    border:
-        1px solid rgba(255,255,255,.05);
+    background:rgba(20,27,37,.8);
+    border:1px solid rgba(255,255,255,.05);
 }
 
-.item:last-child{
-    margin-bottom:0;
-}
+.item:last-child{margin-bottom:0}
 
 .itemtop{
     display:flex;
     align-items:center;
-
     gap:12px;
 }
 
 .mini{
     width:58px;
     height:58px;
-
     object-fit:contain;
-
     border-radius:12px;
-
     background:#111923;
 }
 
 .item strong{
     display:block;
-
     font-size:17px;
 }
 
 .item small{
     display:block;
-
     margin-top:4px;
-
     color:#98a3b1;
-
     font-size:13px;
 }
 
 .price{
     margin-top:11px;
-
     display:flex;
     align-items:center;
-
     gap:5px;
-
     font-size:17px;
     font-weight:1000;
 }
@@ -521,81 +335,52 @@ header{
 
 button{
     width:100%;
-
     margin-top:10px;
-
     border:0;
     border-radius:11px;
-
     padding:13px;
-
     background:#202a36;
-
     color:white;
-
     font-weight:1000;
-
     cursor:pointer;
-
     font-size:14px;
-
     transition:.15s;
 }
 
 button:hover:not(:disabled){
     background:#294231;
-
     transform:translateY(-1px);
 }
 
 button:disabled{
     opacity:.38;
-
     cursor:not-allowed;
 }
 
 .mystery{
     width:58px;
     height:58px;
-
     border-radius:12px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     background:#111923;
-
     font-size:31px;
 }
 
-
-/* =========================
-   FLOAT
-========================= */
+/* FLOAT */
 
 .float{
     position:fixed;
-
     pointer-events:none;
-
     z-index:5000;
-
     font-size:22px;
     font-weight:1000;
-
     display:flex;
-
     align-items:center;
-
     gap:5px;
-
-    animation:
-        floatup .65s ease-out forwards;
-
-    text-shadow:
-        0 4px 15px rgba(0,0,0,.5);
+    animation:floatup .65s ease-out forwards;
+    text-shadow:0 4px 15px rgba(0,0,0,.5);
 }
 
 .float .gem{
@@ -604,60 +389,34 @@ button:disabled{
 }
 
 @keyframes floatup{
-
     from{
         opacity:1;
-
-        transform:
-            translateY(0)
-            scale(1);
+        transform:translateY(0) scale(1);
     }
-
     to{
         opacity:0;
-
-        transform:
-            translateY(-70px)
-            scale(1.08);
+        transform:translateY(-70px) scale(1.08);
     }
-
 }
 
-
-/* =========================
-   FIXED BUTTONS
-========================= */
+/* FIXED BUTTONS */
 
 .secret-button,
 .code-button,
 .machine-button{
-
     position:fixed;
-
     z-index:3000;
-
     width:54px;
     height:54px;
-
     border-radius:50%;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     padding:0;
     margin:0;
-
-    background:
-        rgba(10,15,21,.92);
-
-    border:
-        1px solid rgba(255,255,255,.10);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.4);
-
+    background:rgba(10,15,21,.92);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
     font-size:24px;
 }
 
@@ -682,223 +441,136 @@ button:disabled{
     background:#18221b;
 }
 
-
-/* =========================
-   OVERLAY
-========================= */
+/* OVERLAY */
 
 .overlay{
     display:none;
-
     position:fixed;
-
     inset:0;
-
     z-index:4000;
-
     align-items:center;
     justify-content:center;
-
     padding:20px;
-
-    background:
-        rgba(0,0,0,.82);
-
-    backdrop-filter:
-        blur(8px);
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(8px);
 }
 
 .modal{
     width:min(620px,100%);
-
     position:relative;
-
     border-radius:24px;
-
     padding:30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #121923,
-            #0b1017
-        );
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 25px 90px rgba(0,0,0,.6);
+    background:linear-gradient(145deg,#121923,#0b1017);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 25px 90px rgba(0,0,0,.6);
 }
 
 .close{
     position:absolute;
-
     right:14px;
     top:14px;
-
     width:40px;
     height:40px;
-
     margin:0;
     padding:0;
-
     border-radius:50%;
-
     background:#18212b;
-
     font-size:20px;
 }
 
 .modal h2{
     margin:0 0 10px;
-
     font-size:28px;
 }
 
 .modal p{
     color:#9da8b6;
-
     line-height:1.6;
 }
 
+/* VIDEO */
 
-/* =========================
-   SECRET
-========================= */
-
-.secret-image{
+.secret-video{
     width:100%;
-
-    max-height:70vh;
-
-    object-fit:contain;
-
+    max-height:75vh;
     display:block;
-
-    margin:auto;
-
     border-radius:18px;
+    background:#000;
+    object-fit:contain;
 }
 
-
-/* =========================
-   CODE
-========================= */
+/* CODE */
 
 .codeInput{
     width:100%;
-
     padding:15px;
-
     border-radius:12px;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
+    border:1px solid rgba(255,255,255,.08);
     background:#080d13;
-
     color:white;
-
     outline:none;
-
     font-size:18px;
-
     text-align:center;
-
     font-weight:900;
 }
 
 .codeMessage{
     min-height:24px;
-
     margin-top:10px;
-
     font-weight:900;
 }
 
-
-/* =========================
-   MACHINE
-========================= */
+/* MACHINE */
 
 .machine{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
-
     margin:20px 0;
 }
 
 .slot{
     min-width:0;
-
     height:100px;
-
     border-radius:15px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     background:#080d13;
-
-    border:
-        2px solid #202c37;
-
-    box-shadow:
-        inset 0 0 20px rgba(255,255,255,.03);
-
+    border:2px solid #202c37;
+    box-shadow:inset 0 0 20px rgba(255,255,255,.03);
     overflow:hidden;
 }
 
 .slot img{
     width:54px !important;
     height:54px !important;
-
     min-width:54px;
     min-height:54px;
-
     max-width:54px;
     max-height:54px;
-
     object-fit:contain;
-
     display:block;
 }
 
 .slot span{
     width:54px;
     height:54px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     font-size:42px;
-
     line-height:1;
-
     flex:none;
 }
 
 .machineResult{
     min-height:50px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     gap:6px;
-
     text-align:center;
-
     font-size:18px;
     font-weight:1000;
 }
@@ -906,165 +578,85 @@ button:disabled{
 .machineResult img{
     width:23px;
     height:23px;
-
     object-fit:contain;
-
-    vertical-align:middle;
 }
 
-
-/* =========================
-   PACZKA
-========================= */
+/* PACZKA */
 
 .deliveryBox{
     display:none;
-
     position:fixed;
-
     right:20px;
     bottom:20px;
-
     z-index:2800;
-
     width:250px;
-
     border-radius:20px;
-
     padding:18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #161d27,
-            #0b1016
-        );
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 20px 55px rgba(0,0,0,.5);
-
+    background:linear-gradient(145deg,#161d27,#0b1016);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 20px 55px rgba(0,0,0,.5);
     cursor:pointer;
-
-    animation:
-        deliveryFloat
-        1s
-        ease-in-out
-        infinite
-        alternate;
+    animation:deliveryFloat 1s ease-in-out infinite alternate;
 }
 
 @keyframes deliveryFloat{
-
-    from{
-        transform:
-            translateY(0);
-    }
-
-    to{
-        transform:
-            translateY(-6px);
-    }
-
+    from{transform:translateY(0)}
+    to{transform:translateY(-6px)}
 }
 
 .deliveryEmoji{
     font-size:45px;
-
     text-align:center;
 }
 
 .deliveryTitle{
     margin-top:6px;
-
     text-align:center;
-
     font-size:18px;
     font-weight:1000;
 }
 
 .deliveryText{
     margin-top:5px;
-
     text-align:center;
-
     color:#98a3b1;
-
     font-size:13px;
 }
 
-
-/* =========================
-   FINAL
-========================= */
+/* FINAL */
 
 #final{
     display:none;
-
     position:fixed;
-
     inset:0;
-
     z-index:6000;
-
     align-items:center;
     justify-content:center;
-
     padding:20px;
-
-    background:
-        rgba(0,0,0,.9);
-
-    backdrop-filter:
-        blur(10px);
+    background:rgba(0,0,0,.9);
+    backdrop-filter:blur(10px);
 }
 
 .finalbox{
     position:relative;
-
     width:min(760px,100%);
-
     max-height:90vh;
-
     overflow:auto;
-
     padding:42px;
-
     text-align:center;
-
     border-radius:28px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #151c25,
-            #0b1118
-        );
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.65);
+    background:linear-gradient(145deg,#151c25,#0b1118);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 30px 100px rgba(0,0,0,.65);
 }
 
 .finalImg{
     width:min(300px,70%);
-
     height:auto;
-
     max-height:300px;
-
     object-fit:contain;
-
     display:block;
-
-    margin:
-        0
-        auto
-        16px;
+    margin:0 auto 16px;
 }
 
 .finalbox .emoji{
@@ -1073,37 +665,25 @@ button:disabled{
 
 .finalbox h1{
     margin:12px 0;
-
     font-size:43px;
 }
 
 .finalbox p{
     font-size:21px;
-
     line-height:1.65;
-
     color:#e5eaf0;
 }
 
-
-/* =========================
-   CONFETTI
-========================= */
+/* CONFETTI */
 
 .confettiCanvas{
     position:fixed;
-
     inset:0;
-
     pointer-events:none;
-
     z-index:7000;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -1117,7 +697,6 @@ button:disabled{
 
     .gems{
         right:13px;
-
         font-size:22px;
     }
 
@@ -1132,13 +711,11 @@ button:disabled{
 
     .heroBar{
         align-items:flex-start;
-
         flex-direction:column;
     }
 
     .layout{
         grid-template-columns:1fr;
-
         margin-top:18px;
     }
 
@@ -1178,14 +755,10 @@ button:disabled{
     .deliveryBox{
         left:15px;
         right:15px;
-
         bottom:15px;
-
         width:auto;
     }
-
 }
-
 
 @media(max-width:470px){
 
@@ -1219,18 +792,12 @@ button:disabled{
         width:54px;
         height:54px;
     }
-
 }
 
 </style>
 </head>
 
 <body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header>
 
@@ -1254,10 +821,6 @@ button:disabled{
 </header>
 
 
-<!-- =========================
-     HERO
-========================= -->
-
 <div class="hero">
 
     <div class="heroBar">
@@ -1265,11 +828,11 @@ button:disabled{
         <div>
 
             <div class="heroTitle">
-                 ZBIERAJ • ODBLOKUJ • ODKRYWAJ
+                🎮 ZBIERAJ • ODBLOKUJ • ODKRYWAJ
             </div>
 
             <div class="heroSub">
-                Klikaj, zdobywaj gemy aby odblokować kolejne postacie!
+                Klikaj, zdobywaj gemy i odkrywaj sekrety.
             </div>
 
         </div>
@@ -1287,19 +850,11 @@ button:disabled{
 </div>
 
 
-<!-- =========================
-     MAIN
-========================= -->
-
 <div class="layout">
 
-
-    <!-- =========================
-         GRA
-    ========================= -->
+    <!-- GRA -->
 
     <section class="game">
-
 
         <h1
             class="stage"
@@ -1308,11 +863,9 @@ button:disabled{
             SPIKE
         </h1>
 
-
         <div class="hint">
             Klikaj postać, żeby zdobywać gemy!
         </div>
-
 
         <img
             id="character"
@@ -1320,9 +873,6 @@ button:disabled{
             src="spike.png"
             draggable="false"
         >
-
-
-        <!-- POWER -->
 
         <div class="power">
 
@@ -1352,7 +902,7 @@ button:disabled{
                     class="progressTitle"
                     id="progressTitle"
                 >
-                    POSTĘP
+                    POSTĘP DO CARLA
                 </span>
 
                 <span
@@ -1364,7 +914,6 @@ button:disabled{
 
             </div>
 
-
             <div class="progressTrack">
 
                 <div
@@ -1374,13 +923,11 @@ button:disabled{
 
             </div>
 
-
             <div
                 class="progressSmall"
                 id="progressSmall"
             >
                 Zdobądź jeszcze 30 gemów
-
             </div>
 
         </div>
@@ -1388,9 +935,7 @@ button:disabled{
     </section>
 
 
-    <!-- =========================
-         SKLEP
-    ========================= -->
+    <!-- SKLEP -->
 
     <aside class="shop">
 
@@ -1433,7 +978,6 @@ button:disabled{
 
             </div>
 
-
             <div class="price">
 
                 30
@@ -1444,7 +988,6 @@ button:disabled{
                 >
 
             </div>
-
 
             <button
                 id="carl"
@@ -1490,7 +1033,6 @@ button:disabled{
 
             </div>
 
-
             <div class="price">
 
                 100
@@ -1501,7 +1043,6 @@ button:disabled{
                 >
 
             </div>
-
 
             <button
                 id="rico"
@@ -1547,7 +1088,6 @@ button:disabled{
 
             </div>
 
-
             <div class="price">
 
                 500
@@ -1558,7 +1098,6 @@ button:disabled{
                 >
 
             </div>
-
 
             <button
                 id="grom"
@@ -1594,7 +1133,6 @@ button:disabled{
 
             </div>
 
-
             <div class="price">
 
                 999
@@ -1605,7 +1143,6 @@ button:disabled{
                 >
 
             </div>
-
 
             <button
                 id="finalBtn"
@@ -1621,9 +1158,7 @@ button:disabled{
 </div>
 
 
-<!-- =========================
-     SECRET BUTTON
-========================= -->
+<!-- SECRET BUTTON -->
 
 <button
     class="secret-button"
@@ -1634,9 +1169,7 @@ button:disabled{
 </button>
 
 
-<!-- =========================
-     CODE BUTTON
-========================= -->
+<!-- CODE BUTTON -->
 
 <button
     class="code-button"
@@ -1647,9 +1180,7 @@ button:disabled{
 </button>
 
 
-<!-- =========================
-     MACHINE BUTTON
-========================= -->
+<!-- MACHINE BUTTON -->
 
 <button
     class="machine-button"
@@ -1660,9 +1191,7 @@ button:disabled{
 </button>
 
 
-<!-- =========================
-     SEKRET
-========================= -->
+<!-- FILM -->
 
 <div
     class="overlay"
@@ -1679,21 +1208,30 @@ button:disabled{
             ×
         </button>
 
-
-        <img
-            src="secret.png"
-            class="secret-image"
+        <video
+            id="secretVideo"
+            class="secret-video"
+            controls
+            playsinline
+            preload="metadata"
             onclick="event.stopPropagation()"
         >
+
+            <source
+                src="secret.mp4"
+                type="video/mp4"
+            >
+
+            Twoja przeglądarka nie obsługuje tego filmu.
+
+        </video>
 
     </div>
 
 </div>
 
 
-<!-- =========================
-     KOD
-========================= -->
+<!-- KOD -->
 
 <div
     class="overlay"
@@ -1709,16 +1247,13 @@ button:disabled{
             ×
         </button>
 
-
         <h2>
             🔎 Tajny kod
         </h2>
 
-
         <p>
             Wpisz kod, żeby odebrać specjalną nagrodę.
         </p>
-
 
         <input
             id="codeInput"
@@ -1728,13 +1263,11 @@ button:disabled{
             autocomplete="off"
         >
 
-
         <button
             onclick="useCode()"
         >
             ODBIERZ NAGRODĘ
         </button>
-
 
         <div
             id="codeMessage"
@@ -1746,9 +1279,7 @@ button:disabled{
 </div>
 
 
-<!-- =========================
-     AUTOMAT
-========================= -->
+<!-- AUTOMAT -->
 
 <div
     class="overlay"
@@ -1764,31 +1295,25 @@ button:disabled{
             ×
         </button>
 
-
         <h2>
             🎰 Automat
         </h2>
-
 
         <p>
             Trzy pola. Jedna nagroda. Powodzenia.
         </p>
 
-
         <div class="machine">
-
 
             <div
                 class="slot"
                 id="slot1"
             ></div>
 
-
             <div
                 class="slot"
                 id="slot2"
             ></div>
-
 
             <div
                 class="slot"
@@ -1797,14 +1322,12 @@ button:disabled{
 
         </div>
 
-
         <button
             id="machineButton"
             onclick="spinMachine()"
         >
             ZAKRĘĆ AUTOMAT
         </button>
-
 
         <div
             id="machineResult"
@@ -1816,9 +1339,7 @@ button:disabled{
 </div>
 
 
-<!-- =========================
-     PACZKA KURIERA
-========================= -->
+<!-- PACZKA -->
 
 <div
     id="deliveryBox"
@@ -1830,11 +1351,9 @@ button:disabled{
         📦
     </div>
 
-
     <div class="deliveryTitle">
         O! PACZKA!
     </div>
-
 
     <div class="deliveryText">
         Kliknij, żeby odebrać nagrodę.
@@ -1843,30 +1362,24 @@ button:disabled{
 </div>
 
 
-<!-- =========================
-     FINAŁ
-========================= -->
+<!-- FINAŁ -->
 
 <div id="final">
 
     <div class="finalbox">
-
 
         <img
             src="urodziny.png"
             class="finalImg"
         >
 
-
         <div class="emoji">
             🎉🎂💖
         </div>
 
-
         <h1>
             18 URODZINY! 🥳
         </h1>
-
 
         <p>
 
@@ -1891,31 +1404,22 @@ button:disabled{
 
 <script>
 
-
-/* =========================
-   PODSTAWOWE DANE
-========================= */
+/* DANE */
 
 let gems = 0;
-
 let power = 1;
-
 let stage = "spike";
 
 let codeUsed = false;
-
 let doubleClicks = 0;
 
 let machineSpinning = false;
 
 let deliveryVisible = false;
-
 let deliveryClaimed = false;
 
 
-/* =========================
-   ELEMENTY
-========================= */
+/* ELEMENTY */
 
 const character =
     document.getElementById("character");
@@ -1941,10 +1445,11 @@ const progressTitle =
 const progressSmall =
     document.getElementById("progressSmall");
 
+const secretVideo =
+    document.getElementById("secretVideo");
 
-/* =========================
-   PROGRESS TARGET
-========================= */
+
+/* PROGRESS */
 
 function getProgressTarget(){
 
@@ -1965,13 +1470,8 @@ function getProgressTarget(){
     }
 
     return 999;
-
 }
 
-
-/* =========================
-   PROGRESS BAR
-========================= */
 
 function renderProgress(){
 
@@ -1983,7 +1483,6 @@ function renderProgress(){
             100,
             (gems / target) * 100
         );
-
 
     progressFill.style.width =
         percentage + "%";
@@ -2031,41 +1530,25 @@ function renderProgress(){
         );
 
 
-    if(left > 0){
-
-        progressSmall.textContent =
-            "Zdobądź jeszcze "
-            + left
-            + " gemów";
-
-    }
-    else{
-
-        progressSmall.textContent =
-            "🎉 Możesz teraz odblokować!";
-
-    }
-
+    progressSmall.textContent =
+        left > 0
+            ? "Zdobądź jeszcze " + left + " gemów"
+            : "🎉 Możesz teraz odblokować!";
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* RENDER */
 
 function render(){
 
     gemsEl.textContent =
         gems;
 
-
     powerEl.textContent =
         power;
 
-
     stageEl.textContent =
         stage.toUpperCase();
-
 
     character.src =
         stage + ".png";
@@ -2074,27 +1557,21 @@ function render(){
     document.getElementById("carl").disabled =
         gems < 30;
 
-
     document.getElementById("rico").disabled =
         gems < 100;
 
-
     document.getElementById("grom").disabled =
         gems < 500;
-
 
     document.getElementById("finalBtn").disabled =
         gems < 999;
 
 
     renderProgress();
-
 }
 
 
-/* =========================
-   KLIK POSTACIĄ
-========================= */
+/* KLIK POSTACIĄ */
 
 character.onclick = function(e){
 
@@ -2128,9 +1605,9 @@ character.onclick = function(e){
 
 
     f.innerHTML =
-        "+"
-        + gained
-        + '<img src="gem.png" class="gem">';
+        "+" +
+        gained +
+        '<img src="gem.png" class="gem">';
 
 
     f.style.left =
@@ -2153,9 +1630,7 @@ character.onclick = function(e){
 };
 
 
-/* =========================
-   SKLEP
-========================= */
+/* SKLEP */
 
 function buy(
     cost,
@@ -2171,23 +1646,18 @@ function buy(
     gems -=
         cost;
 
-
     power =
         newPower;
-
 
     stage =
         name;
 
 
     render();
-
 }
 
 
-/* =========================
-   FINAŁ
-========================= */
+/* FINAŁ */
 
 function finale(){
 
@@ -2203,13 +1673,10 @@ function finale(){
 
 
     confetti();
-
 }
 
 
-/* =========================
-   SEKRET
-========================= */
+/* FILM */
 
 function openSecret(){
 
@@ -2218,6 +1685,12 @@ function openSecret(){
     ).style.display =
         "flex";
 
+
+    secretVideo.currentTime =
+        0;
+
+
+    secretVideo.play().catch(() => {});
 }
 
 
@@ -2225,23 +1698,24 @@ function closeSecret(e){
 
     if(
         !e ||
-        e.target.id ===
-        "secretOverlay"
+        e.target.id === "secretOverlay"
     ){
+
+        secretVideo.pause();
+
+        secretVideo.currentTime =
+            0;
+
 
         document.getElementById(
             "secretOverlay"
         ).style.display =
             "none";
-
     }
-
 }
 
 
-/* =========================
-   KOD
-========================= */
+/* KOD */
 
 function openCode(){
 
@@ -2258,7 +1732,6 @@ function openCode(){
         ).focus();
 
     },100);
-
 }
 
 
@@ -2268,7 +1741,6 @@ function closeCode(){
         "codeOverlay"
     ).style.display =
         "none";
-
 }
 
 
@@ -2301,7 +1773,6 @@ function useCode(){
             "❌ Zły kod.";
 
         return;
-
     }
 
 
@@ -2314,17 +1785,12 @@ function useCode(){
             "⚠️ Ten kod został już wykorzystany.";
 
         return;
-
     }
 
 
-    gems +=
-        100;
+    gems += 100;
 
-
-    codeUsed =
-        true;
-
+    codeUsed = true;
 
     render();
 
@@ -2337,50 +1803,41 @@ function useCode(){
         '🎉 Otrzymujesz <strong>+100</strong> ' +
         '<img src="gem.png" ' +
         'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
-
 }
 
 
-/* =========================
-   AUTOMAT
-========================= */
+/* AUTOMAT */
 
 const machinePrizes = [
 
     {
         file:"gem.png",
-        type:"plus5",
-        text:"+5 gemów"
+        type:"plus5"
     },
 
     {
         file:"coin.png",
-        type:"plus25",
-        text:"+25 gemów"
+        type:"plus25"
     },
 
     {
         file:"powerpoints.png",
-        type:"plus80",
-        text:"+80 gemów"
+        type:"plus80"
     },
 
     {
         file:"blings.png",
-        type:"double",
-        text:"2× gemy przez 10 kliknięć"
+        type:"double"
     },
 
     {
         file:null,
-        type:"nothing",
-        text:"NIC XD"
+        type:"nothing"
     },
 
     {
         file:"crown",
-        type:"jackpot",
-        text:"JACKPOT! +300 gemów!"
+        type:"jackpot"
     }
 
 ];
@@ -2410,7 +1867,6 @@ function openMachine(){
         "slot3",
         machinePrizes[2]
     );
-
 }
 
 
@@ -2420,7 +1876,6 @@ function closeMachine(){
         "machineOverlay"
     ).style.display =
         "none";
-
 }
 
 
@@ -2452,7 +1907,6 @@ function setSlotContent(
         slot.appendChild(span);
 
         return;
-
     }
 
 
@@ -2471,7 +1925,6 @@ function setSlotContent(
         slot.appendChild(span);
 
         return;
-
     }
 
 
@@ -2490,7 +1943,6 @@ function setSlotContent(
 
 
     slot.appendChild(img);
-
 }
 
 
@@ -2534,8 +1986,8 @@ function spinMachine(){
 
 
             for(
-                let i=1;
-                i<=3;
+                let i = 1;
+                i <= 3;
                 i++
             ){
 
@@ -2552,7 +2004,6 @@ function spinMachine(){
                     "slot" + i,
                     randomPrize
                 );
-
             }
 
 
@@ -2561,9 +2012,7 @@ function spinMachine(){
 
             if(ticks >= 12){
 
-                clearInterval(
-                    interval
-                );
+                clearInterval(interval);
 
 
                 const prize =
@@ -2596,18 +2045,14 @@ function spinMachine(){
                 giveMachinePrize(
                     prize
                 );
-
             }
 
 
         },120);
-
 }
 
 
-function giveMachinePrize(
-    prize
-){
+function giveMachinePrize(prize){
 
     const result =
         document.getElementById(
@@ -2617,100 +2062,71 @@ function giveMachinePrize(
 
     if(prize.type === "plus5"){
 
-        gems +=
-            5;
-
+        gems += 5;
 
         render();
 
 
         result.innerHTML =
             '🎉 <strong>+5</strong> ' +
-            '<img src="gem.png" ' +
-            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
-
+            '<img src="gem.png" style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
     }
 
 
-    else if(
-        prize.type === "plus25"
-    ){
+    else if(prize.type === "plus25"){
 
-        gems +=
-            25;
-
+        gems += 25;
 
         render();
 
 
         result.innerHTML =
             '🎉 <strong>+25</strong> ' +
-            '<img src="gem.png" ' +
-            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
-
+            '<img src="gem.png" style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
     }
 
 
-    else if(
-        prize.type === "plus80"
-    ){
+    else if(prize.type === "plus80"){
 
-        gems +=
-            80;
-
+        gems += 80;
 
         render();
 
 
         result.innerHTML =
             '🔥 <strong>+80</strong> ' +
-            '<img src="gem.png" ' +
-            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
-
+            '<img src="gem.png" style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
     }
 
 
-    else if(
-        prize.type === "double"
-    ){
+    else if(prize.type === "double"){
 
-        doubleClicks +=
-            10;
+        doubleClicks += 10;
 
 
         result.innerHTML =
             '⚡ <strong>2× GEMY!</strong><br>' +
             'Następne 10 kliknięć daje podwójne gemy.';
-
     }
 
 
-    else if(
-        prize.type === "nothing"
-    ){
+    else if(prize.type === "nothing"){
 
         result.innerHTML =
             '😂 <strong>NIC XD</strong>';
-
     }
 
 
-    else if(
-        prize.type === "jackpot"
-    ){
+    else if(prize.type === "jackpot"){
 
-        gems +=
-            300;
-
+        gems += 300;
 
         render();
 
 
         result.innerHTML =
             '👑 <strong>JACKPOT! +300</strong> ' +
-            '<img src="gem.png" ' +
-            'style="width:27px;height:27px;object-fit:contain;vertical-align:middle;">';
-
+            '<img src="gem.png" style="width:27px;height:27px;object-fit:contain;vertical-align:middle;">';
     }
 
 
@@ -2722,13 +2138,10 @@ function giveMachinePrize(
 
     machineSpinning =
         false;
-
 }
 
 
-/* =========================
-   PACZKA KURIERA
-========================= */
+/* PACZKA */
 
 function scheduleDelivery(){
 
@@ -2744,7 +2157,6 @@ function scheduleDelivery(){
         showDelivery();
 
     },delay);
-
 }
 
 
@@ -2763,15 +2175,10 @@ function showDelivery(){
         false;
 
 
-    const box =
-        document.getElementById(
-            "deliveryBox"
-        );
-
-
-    box.style.display =
+    document.getElementById(
+        "deliveryBox"
+    ).style.display =
         "block";
-
 }
 
 
@@ -2781,9 +2188,7 @@ function openDelivery(){
         !deliveryVisible ||
         deliveryClaimed
     ){
-
         return;
-
     }
 
 
@@ -2802,13 +2207,11 @@ function openDelivery(){
 
 
     const rewards = [
-
         10,
         25,
         50,
         100,
         15
-
     ];
 
 
@@ -2832,28 +2235,11 @@ function openDelivery(){
         "none";
 
 
-    box.querySelector(
-        ".deliveryTitle"
-    ).textContent =
-        "O! PACZKA!";
-
-
-    box.querySelector(
-        ".deliveryText"
-    ).textContent =
-        "Kliknij, żeby odebrać nagrodę.";
-
-
-    /* NOWA PACZKA PÓŹNIEJ */
-
     scheduleDelivery();
-
 }
 
 
-/* =========================
-   KONFETTI
-========================= */
+/* KONFETTI */
 
 function confetti(){
 
@@ -2881,28 +2267,20 @@ function confetti(){
         canvas.width =
             window.innerWidth;
 
-
         canvas.height =
             window.innerHeight;
-
     }
 
 
     resize();
 
 
-    window.addEventListener(
-        "resize",
-        resize
-    );
-
-
     const pieces = [];
 
 
     for(
-        let i=0;
-        i<260;
+        let i = 0;
+        i < 260;
         i++
     ){
 
@@ -2916,10 +2294,10 @@ function confetti(){
                 -20,
 
             size:
-                Math.random() * 10 + 5,
+                Math.random()*10 + 5,
 
             speed:
-                Math.random() * 5 + 2,
+                Math.random()*5 + 2,
 
             drift:
                 (Math.random()-.5)*3,
@@ -2928,12 +2306,10 @@ function confetti(){
                 Math.random()*360
 
         });
-
     }
 
 
-    let frames =
-        0;
+    let frames = 0;
 
 
     function draw(){
@@ -2948,16 +2324,11 @@ function confetti(){
 
         pieces.forEach(p => {
 
-            p.y +=
-                p.speed;
+            p.y += p.speed;
 
+            p.x += p.drift;
 
-            p.x +=
-                p.drift;
-
-
-            p.rotation +=
-                5;
+            p.rotation += 5;
 
 
             ctx.save();
@@ -2979,8 +2350,7 @@ function confetti(){
             ctx.fillStyle =
                 "hsl(" +
                 (
-                    Math.random() *
-                    360
+                    Math.random()*360
                 ) +
                 ",90%,60%)";
 
@@ -3013,18 +2383,14 @@ function confetti(){
             canvas.remove();
 
         }
-
     }
 
 
     draw();
-
 }
 
 
-/* =========================
-   START
-========================= */
+/* START */
 
 render();
 
