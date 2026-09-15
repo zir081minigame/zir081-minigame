@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,7 +22,10 @@ body{
     color:white;
 }
 
-/* GÓRNY PASEK */
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
 
 header{
     height:80px;
@@ -40,8 +44,6 @@ header{
     font-weight:900;
 }
 
-/* LICZNIK GEMÓW */
-
 .gems{
     position:absolute;
     right:25px;
@@ -58,11 +60,12 @@ header{
     width:30px;
     height:30px;
     object-fit:contain;
-    vertical-align:middle;
 }
 
 
-/* GŁÓWNY UKŁAD */
+/* ========================= */
+/* UKŁAD */
+/* ========================= */
 
 .layout{
     max-width:1200px;
@@ -74,7 +77,9 @@ header{
 }
 
 
+/* ========================= */
 /* GRA */
+/* ========================= */
 
 .game{
     min-height:700px;
@@ -134,7 +139,9 @@ header{
 }
 
 
+/* ========================= */
 /* SKLEP */
+/* ========================= */
 
 .shop{
     background:rgba(3,8,23,.82);
@@ -220,7 +227,9 @@ button:disabled{
 }
 
 
+/* ========================= */
 /* TAJEMNICZY */
+/* ========================= */
 
 .mystery{
     width:58px;
@@ -234,7 +243,9 @@ button:disabled{
 }
 
 
+/* ========================= */
 /* + GEM */
+/* ========================= */
 
 .float{
     position:fixed;
@@ -266,122 +277,163 @@ button:disabled{
 
 
 /* ========================= */
-/* ZNAK ZAPYTANIA */
+/* PRZYCISK ? */
 /* ========================= */
 
 .secret-button{
-
     position:fixed;
-
     left:15px;
     bottom:15px;
-
     width:40px;
     height:40px;
-
     border-radius:50%;
-
-    background:rgba(3,8,23,.9);
-
-    border:2px solid rgba(255,255,255,.7);
-
+    background:rgba(3,8,23,.95);
+    border:2px solid white;
     color:white;
-
     font-size:20px;
     font-weight:900;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     cursor:pointer;
-
-    z-index:500;
-
+    z-index:9998;
     box-shadow:0 5px 20px rgba(0,0,0,.5);
-
-    transition:.2s;
 }
 
 .secret-button:hover{
-
     transform:scale(1.12);
-
     background:#2563a6;
-
-    border-color:white;
-
-}
-
-.secret-button:active{
-
-    transform:scale(.95);
-
 }
 
 
 /* ========================= */
-/* SECRET - NIERUCHOME */
+/* SECRET */
 /* ========================= */
 
 #secretOverlay{
-
     display:none;
-
     position:fixed;
-
     inset:0;
-
     width:100vw;
     height:100vh;
-
     background:#050505;
-
     z-index:5000;
-
     cursor:pointer;
-
     align-items:center;
     justify-content:center;
-
 }
-
-
-/* ZDJĘCIE SECRET */
 
 #secretImage{
-
     width:90vw;
     height:90vh;
-
     object-fit:contain;
-
     user-select:none;
-
     pointer-events:none;
+}
 
+.secretHint{
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:15px;
+    opacity:.5;
+    z-index:2;
+    pointer-events:none;
 }
 
 
-/* NAPIS */
+/* ========================= */
+/* OKNO KODU */
+/* ========================= */
 
-.secretHint{
+#codeOverlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    z-index:10000;
+    align-items:center;
+    justify-content:center;
+}
 
-    position:absolute;
+.codeBox{
+    width:380px;
+    max-width:90%;
+    background:#111c35;
+    border-radius:25px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.7);
+    position:relative;
+}
 
-    top:20px;
-    left:50%;
+.codeBox h2{
+    margin:0 0 10px;
+    font-size:30px;
+}
 
-    transform:translateX(-50%);
+.codeBox p{
+    font-size:17px;
+}
 
-    font-size:15px;
+.codeBox input{
+    width:100%;
+    padding:14px;
+    border:0;
+    outline:none;
+    border-radius:11px;
+    font-size:17px;
+    margin-top:8px;
+}
 
-    opacity:.5;
+.codeBox button{
+    margin-top:12px;
+}
 
-    z-index:2;
+#codeMessage{
+    min-height:25px;
+    font-weight:900;
+    margin-bottom:0;
+}
 
-    pointer-events:none;
 
+/* ========================= */
+/* X DO ZAMKNIĘCIA KODU */
+/* ========================= */
+
+.closeCode{
+    position:absolute !important;
+
+    top:10px !important;
+    right:10px !important;
+
+    width:40px !important;
+    height:40px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    border-radius:50% !important;
+
+    background:#243454 !important;
+
+    border:0 !important;
+
+    color:white !important;
+
+    font-size:20px !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    cursor:pointer !important;
+}
+
+.closeCode:hover{
+    background:#d33 !important;
+    transform:none !important;
 }
 
 
@@ -390,65 +442,37 @@ button:disabled{
 /* ========================= */
 
 #final{
-
     display:none;
-
     position:fixed;
-
     inset:0;
-
     background:rgba(0,0,0,.88);
-
     z-index:1000;
-
     align-items:center;
     justify-content:center;
-
     padding:20px;
 }
 
 .finalbox{
-
     max-width:750px;
     width:100%;
-
     background:#111c35;
-
     border-radius:25px;
-
     padding:45px;
-
     text-align:center;
-
     box-shadow:0 20px 60px rgba(0,0,0,.6);
 }
 
-
-/* WŁASNY OBRAZEK URODZINOWY */
-
 .birthdayImage{
-
     width:240px;
-
     max-width:80%;
-
     max-height:180px;
-
     object-fit:contain;
-
     margin-bottom:10px;
-
 }
-
-
-/* EMOTKI */
 
 .finalbox .emoji{
     display:none;
 }
-
-
-/* NAPIS */
 
 .finalbox h1{
     font-size:42px;
@@ -527,11 +551,6 @@ button:disabled{
         font-size:19px;
     }
 
-    #secretImage{
-        width:90vw;
-        height:85vh;
-    }
-
     .birthdayImage{
         width:200px;
         max-height:140px;
@@ -540,7 +559,9 @@ button:disabled{
 }
 
 
+/* ========================= */
 /* MAŁY TELEFON */
+/* ========================= */
 
 @media(max-width:450px){
 
@@ -567,7 +588,7 @@ button:disabled{
 
 
 <!-- ========================= -->
-<!-- GÓRNY PASEK -->
+<!-- HEADER -->
 <!-- ========================= -->
 
 <header>
@@ -583,7 +604,9 @@ button:disabled{
             class="gem"
         >
 
-        <span id="gems">0</span>
+        <span id="gems">
+            0
+        </span>
 
     </div>
 
@@ -640,7 +663,9 @@ button:disabled{
 
     <aside class="shop">
 
-        <h2>🛒 SKLEP</h2>
+        <h2>
+            🛒 SKLEP
+        </h2>
 
 
         <!-- CARL -->
@@ -656,7 +681,9 @@ button:disabled{
 
                 <div>
 
-                    <strong>CARL</strong>
+                    <strong>
+                        CARL
+                    </strong>
 
                     <small>
 
@@ -707,7 +734,9 @@ button:disabled{
 
                 <div>
 
-                    <strong>RICO</strong>
+                    <strong>
+                        RICO
+                    </strong>
 
                     <small>
 
@@ -758,7 +787,9 @@ button:disabled{
 
                 <div>
 
-                    <strong>GROM</strong>
+                    <strong>
+                        GROM
+                    </strong>
 
                     <small>
 
@@ -808,7 +839,9 @@ button:disabled{
 
                 <div>
 
-                    <strong>TAJEMNICZY</strong>
+                    <strong>
+                        TAJEMNICZY
+                    </strong>
 
                     <small>
                         coś specjalnego...
@@ -844,7 +877,7 @@ button:disabled{
 
 
 <!-- ========================= -->
-<!-- ZNAK ZAPYTANIA -->
+<!-- PRZYCISK ? -->
 <!-- ========================= -->
 
 <div
@@ -856,7 +889,7 @@ button:disabled{
 
 
 <!-- ========================= -->
-<!-- SECRET - NIERUCHOME -->
+<!-- SECRET -->
 <!-- ========================= -->
 
 <div
@@ -878,6 +911,52 @@ button:disabled{
 
 
 <!-- ========================= -->
+<!-- OKNO KODU -->
+<!-- ========================= -->
+
+<div id="codeOverlay">
+
+    <div
+        class="codeBox"
+        onclick="event.stopPropagation()"
+    >
+
+        <button
+            class="closeCode"
+            onclick="closeCode()"
+        >
+            ✕
+        </button>
+
+        <h2>
+            🔎 Tajny kod
+        </h2>
+
+        <p>
+            Wpisz znaleziony kod:
+        </p>
+
+        <input
+            id="codeInput"
+            type="text"
+            placeholder="Wpisz kod..."
+            autocomplete="off"
+        >
+
+        <button
+            onclick="checkCode()"
+        >
+            SPRAWDŹ
+        </button>
+
+        <p id="codeMessage"></p>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
 <!-- FINAŁ -->
 <!-- ========================= -->
 
@@ -885,19 +964,14 @@ button:disabled{
 
     <div class="finalbox">
 
-
-        <!-- TWÓJ OBRAZEK -->
-
         <img
             src="urodziny.png"
             class="birthdayImage"
         >
 
-
         <h1>
             18 URODZINY! 🥳
         </h1>
-
 
         <p>
 
@@ -906,7 +980,7 @@ button:disabled{
 
             <br><br>
 
-            zyczenia bla bla bla tutaj potem napisze okok
+            Kroooopa!!!
 
         </p>
 
@@ -919,7 +993,7 @@ button:disabled{
 
 
 /* ========================= */
-/* ZMIENNE GRY */
+/* ZMIENNE */
 /* ========================= */
 
 let gems = 0;
@@ -928,6 +1002,12 @@ let power = 1;
 
 let stage = "spike";
 
+let codeUsed = false;
+
+
+/* ========================= */
+/* ELEMENTY */
+/* ========================= */
 
 const character =
     document.getElementById("character");
@@ -943,21 +1023,105 @@ const stageEl =
 
 
 /* ========================= */
+/* TWORZENIE LUPY */
+/* ========================= */
+
+function createCodeButton(){
+
+    const button =
+        document.createElement("div");
+
+    button.id =
+        "REAL_CODE_BUTTON";
+
+    button.innerHTML =
+        "🔎";
+
+    button.onclick =
+        openCode;
+
+
+    button.style.position =
+        "fixed";
+
+    button.style.right =
+        "25px";
+
+    button.style.bottom =
+        "25px";
+
+    button.style.width =
+        "75px";
+
+    button.style.height =
+        "75px";
+
+    button.style.borderRadius =
+        "50%";
+
+    button.style.background =
+        "#111c35";
+
+    button.style.border =
+        "4px solid white";
+
+    button.style.color =
+        "white";
+
+    button.style.fontSize =
+        "38px";
+
+    button.style.display =
+        "flex";
+
+    button.style.alignItems =
+        "center";
+
+    button.style.justifyContent =
+        "center";
+
+    button.style.cursor =
+        "pointer";
+
+    button.style.zIndex =
+        "2147483647";
+
+    button.style.boxShadow =
+        "0 5px 30px rgba(0,0,0,.8)";
+
+    button.style.userSelect =
+        "none";
+
+
+    document.body.appendChild(button);
+
+}
+
+
+/* ========================= */
 /* SKLEP */
 /* ========================= */
 
 function updateShop(){
 
-    document.getElementById("carl").disabled =
+    document.getElementById(
+        "carl"
+    ).disabled =
         gems < 30;
 
-    document.getElementById("rico").disabled =
+    document.getElementById(
+        "rico"
+    ).disabled =
         gems < 100;
 
-    document.getElementById("grom").disabled =
+    document.getElementById(
+        "grom"
+    ).disabled =
         gems < 500;
 
-    document.getElementById("finalBtn").disabled =
+    document.getElementById(
+        "finalBtn"
+    ).disabled =
         gems < 999;
 
 }
@@ -1026,33 +1190,34 @@ character.addEventListener(
         const f =
             document.createElement("div");
 
-
         f.className =
             "float";
-
 
         f.innerHTML =
             "+" +
             power +
             ' <img src="gem.png" class="gem">';
 
-
         f.style.left =
             e.clientX + "px";
-
 
         f.style.top =
             e.clientY + "px";
 
 
-        document.body.appendChild(f);
+        document.body.appendChild(
+            f
+        );
 
 
-        setTimeout(function(){
+        setTimeout(
+            function(){
 
-            f.remove();
+                f.remove();
 
-        },600);
+            },
+            600
+        );
 
     }
 );
@@ -1118,10 +1283,8 @@ function finale(){
 
 
 /* ========================= */
-/* SECRET
-   TYLKO OTWIERANIE/ZAMYKANIE
-   BEZ ŻADNEGO DVD
-========================= */
+/* SECRET */
+/* ========================= */
 
 function openSecret(){
 
@@ -1144,13 +1307,125 @@ function closeSecret(){
 
 
 /* ========================= */
+/* OTWIERANIE KODU */
+/* ========================= */
+
+function openCode(){
+
+    document.getElementById(
+        "codeOverlay"
+    ).style.display =
+        "flex";
+
+
+    document.getElementById(
+        "codeInput"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "codeMessage"
+    ).textContent =
+        "";
+
+
+    setTimeout(
+        function(){
+
+            document.getElementById(
+                "codeInput"
+            ).focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* ========================= */
+/* ZAMYKANIE KODU */
+/* ========================= */
+
+function closeCode(){
+
+    document.getElementById(
+        "codeOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+/* ========================= */
+/* SPRAWDZANIE KODU */
+/* ========================= */
+
+function checkCode(){
+
+    const input =
+        document.getElementById(
+            "codeInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const message =
+        document.getElementById(
+            "codeMessage"
+        );
+
+
+    if(codeUsed){
+
+        message.textContent =
+            "❌ Ten kod został już użyty.";
+
+        return;
+
+    }
+
+
+    if(input === "zir081"){
+
+        gems += 100;
+
+        codeUsed =
+            true;
+
+
+        updateCounter();
+
+        updateShop();
+
+
+        message.textContent =
+            "🎉 Kod poprawny! +100 💎";
+
+    }
+    else{
+
+        message.textContent =
+            "❌ Nieprawidłowy kod.";
+
+    }
+
+}
+
+
+/* ========================= */
 /* KONFETTI */
 /* ========================= */
 
 function confetti(){
 
     const canvas =
-        document.createElement("canvas");
+        document.createElement(
+            "canvas"
+        );
 
 
     canvas.style.position =
@@ -1166,11 +1441,15 @@ function confetti(){
         "6000";
 
 
-    document.body.appendChild(canvas);
+    document.body.appendChild(
+        canvas
+    );
 
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
 
 
     canvas.width =
@@ -1278,7 +1557,9 @@ function confetti(){
         );
 
 
-        requestAnimationFrame(draw);
+        requestAnimationFrame(
+            draw
+        );
 
     }
 
@@ -1289,10 +1570,12 @@ function confetti(){
 
 
 /* ========================= */
-/* START GRY */
+/* START */
 /* ========================= */
 
 render();
+
+createCodeButton();
 
 </script>
 
