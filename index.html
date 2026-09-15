@@ -1,221 +1,336 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Zir081 Mini Game</title>
 
-
 <style>
-
-/* ========================= */
-/* PODSTAWY */
-/* ========================= */
 
 *{
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-
     margin:0;
-
     min-height:100vh;
-
     font-family:Arial,sans-serif;
+    color:white;
 
     background:
-        linear-gradient(
-            135deg,
-            red,
-            green
-        );
+        radial-gradient(circle at 15% 15%,rgba(120,20,20,.16),transparent 28%),
+        radial-gradient(circle at 85% 20%,rgba(20,100,45,.13),transparent 25%),
+        linear-gradient(135deg,#05070b,#090c12 45%,#071009);
 
-    background-attachment:fixed;
+    overflow-x:hidden;
+}
 
-    color:white;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.12;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+
+    background-size:40px 40px;
+    z-index:-1;
 }
 
 
-/* ========================= */
-/* HEADER */
-/* ========================= */
+/* =========================
+   HEADER
+========================= */
 
 header{
+    height:82px;
 
-    height:80px;
-
-    background:rgba(2,10,30,.75);
+    position:sticky;
+    top:0;
+    z-index:50;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    position:relative;
 
     padding:0 25px;
 
-    box-shadow:
-        0 3px 15px rgba(0,0,0,.4);
+    background:rgba(4,7,10,.76);
+    backdrop-filter:blur(16px);
 
-    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.35);
 }
 
 .logo{
+    font-size:34px;
+    font-weight:1000;
+    letter-spacing:-1px;
 
-    font-size:36px;
+    background:
+        linear-gradient(
+            90deg,
+            #7a1010,
+            #123d19
+        );
 
-    font-weight:900;
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    text-shadow:
+        0 0 20px rgba(120,20,20,.15);
 }
 
-
-/* ========================= */
-/* GEMY */
-/* ========================= */
-
 .gems{
-
     position:absolute;
 
     right:25px;
-
     top:50%;
 
     transform:translateY(-50%);
 
     display:flex;
-
     align-items:center;
 
     gap:8px;
 
-    font-size:32px;
-
-    font-weight:900;
+    font-size:30px;
+    font-weight:1000;
 }
 
 .gem{
-
     width:30px;
-
     height:30px;
 
     object-fit:contain;
+    vertical-align:middle;
 }
 
 
-/* ========================= */
-/* UKŁAD */
-/* ========================= */
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    max-width:1200px;
+    margin:24px auto 0;
+    padding:0 20px;
+}
+
+.heroBar{
+    min-height:74px;
+
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.015)
+        );
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.28);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:18px 22px;
+}
+
+.heroTitle{
+    font-size:17px;
+    font-weight:1000;
+    letter-spacing:.5px;
+}
+
+.heroSub{
+    margin-top:5px;
+    color:#8f9aa8;
+    font-size:13px;
+}
+
+.active{
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 13px;
+
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:900;
+
+    background:rgba(50,180,90,.10);
+
+    border:1px solid rgba(80,220,120,.2);
+}
+
+.activeDot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 12px #4ade80;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
 
 .layout{
-
     max-width:1200px;
 
-    margin:25px auto;
+    margin:25px auto 60px;
 
     padding:0 20px;
 
     display:grid;
 
-    grid-template-columns:1fr 310px;
+    grid-template-columns:
+        1fr 330px;
 
     gap:25px;
 }
 
 
-/* ========================= */
-/* GRA */
-/* ========================= */
+/* =========================
+   GAME
+========================= */
 
 .game{
-
-    min-height:700px;
-
-    background:rgba(3,8,23,.82);
-
-    border-radius:24px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
+    min-height:760px;
 
     position:relative;
-
     overflow:hidden;
 
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,14,21,.95),
+            rgba(6,10,14,.95)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    border-radius:26px;
+
     box-shadow:
-        0 15px 40px rgba(0,0,0,.3);
+        0 25px 70px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.03);
 }
 
-.game h1{
+.game::before{
+    content:"";
 
-    margin:
-        0 0 12px;
+    position:absolute;
 
-    font-size:44px;
+    width:500px;
+    height:500px;
 
-    font-weight:900;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,180,90,.08),
+            transparent 65%
+        );
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    pointer-events:none;
+}
+
+.stage{
+    position:relative;
+    z-index:1;
+
+    margin:0 0 8px;
+
+    font-size:32px;
+    font-weight:1000;
 }
 
 .hint{
+    position:relative;
+    z-index:1;
 
-    opacity:.75;
+    color:#94a0ae;
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
-    font-size:21px;
+    text-align:center;
 }
 
 .character{
+    position:relative;
+    z-index:1;
 
-    width:400px;
-
-    height:400px;
+    width:420px;
+    height:420px;
 
     object-fit:contain;
 
     cursor:pointer;
-
     user-select:none;
 
     transition:.12s;
 
     filter:
-        drop-shadow(
-            0 15px 20px rgba(0,0,0,.5)
-        );
+        drop-shadow(0 20px 30px rgba(0,0,0,.55))
+        drop-shadow(0 0 18px rgba(80,180,100,.08));
 }
 
 .character:hover{
-
     transform:scale(1.04);
 }
 
 .character:active{
-
-    transform:scale(.94);
+    transform:scale(.93);
 }
 
 .power{
+    position:relative;
+    z-index:1;
 
     margin-top:18px;
 
-    font-size:28px;
-
-    font-weight:900;
+    font-size:20px;
+    font-weight:1000;
 
     display:flex;
 
@@ -224,129 +339,201 @@ header{
     gap:5px;
 }
 
-.power .gem{
 
-    width:32px;
+/* =========================
+   PROGRESS BAR
+========================= */
 
-    height:32px;
+.progressBox{
+    position:relative;
+    z-index:1;
+
+    width:min(430px,85%);
+
+    margin-top:16px;
+}
+
+.progressTop{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:7px;
+
+    color:#9da8b6;
+
+    font-size:12px;
+    font-weight:900;
+}
+
+.progressTitle{
+    color:#dfe6ed;
+}
+
+.progressNumber{
+    color:#8895a3;
+}
+
+.progressTrack{
+    width:100%;
+    height:12px;
+
+    overflow:hidden;
+
+    background:#101820;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius:999px;
+
+    box-shadow:
+        inset 0 2px 8px rgba(0,0,0,.45);
+}
+
+.progressFill{
+    width:0%;
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4b1010,
+            #7a1d1d 45%,
+            #183d20
+        );
+
+    box-shadow:
+        0 0 15px rgba(70,170,90,.25);
+
+    transition:
+        width .3s ease;
+}
+
+.progressSmall{
+    margin-top:6px;
+
+    text-align:center;
+
+    color:#6f7b88;
+
+    font-size:11px;
 }
 
 
-/* ========================= */
-/* SKLEP */
-/* ========================= */
+/* =========================
+   SHOP
+========================= */
 
 .shop{
+    background:rgba(8,12,18,.92);
 
-    background:rgba(3,8,23,.82);
+    border:
+        1px solid rgba(255,255,255,.06);
 
-    border-radius:24px;
+    border-radius:26px;
 
     padding:18px;
 
     box-shadow:
-        0 15px 40px rgba(0,0,0,.3);
+        0 25px 70px rgba(0,0,0,.35);
 }
 
 .shop h2{
+    margin:0 0 17px;
 
-    margin:
-        0 0 18px;
-
-    font-size:26px;
+    font-size:24px;
 }
 
 .item{
-
-    background:
-        rgba(20,30,55,.8);
-
-    border-radius:18px;
-
     padding:14px;
 
     margin-bottom:14px;
+
+    border-radius:18px;
+
+    background:
+        rgba(20,27,37,.8);
+
+    border:
+        1px solid rgba(255,255,255,.05);
+}
+
+.item:last-child{
+    margin-bottom:0;
 }
 
 .itemtop{
-
     display:flex;
-
     align-items:center;
 
     gap:12px;
 }
 
 .mini{
-
     width:58px;
-
     height:58px;
 
     object-fit:contain;
 
-    background:#17233c;
-
     border-radius:12px;
+
+    background:#111923;
 }
 
 .item strong{
-
     display:block;
 
     font-size:17px;
 }
 
 .item small{
-
     display:block;
 
     margin-top:4px;
 
-    color:#b9c8dc;
+    color:#98a3b1;
 
-    font-size:14px;
+    font-size:13px;
 }
 
 .price{
-
-    margin-top:10px;
-
-    font-size:17px;
-
-    font-weight:900;
+    margin-top:11px;
 
     display:flex;
-
     align-items:center;
 
     gap:5px;
+
+    font-size:17px;
+    font-weight:1000;
 }
 
 .price .gem{
-
     width:19px;
-
     height:19px;
 }
 
 button{
-
     width:100%;
 
     margin-top:10px;
 
     border:0;
-
     border-radius:11px;
 
     padding:13px;
 
-    background:#2563a6;
+    background:#202a36;
 
     color:white;
 
-    font-weight:900;
+    font-weight:1000;
 
     cursor:pointer;
 
@@ -356,878 +543,694 @@ button{
 }
 
 button:hover:not(:disabled){
-
-    background:#3186d1;
+    background:#294231;
 
     transform:translateY(-1px);
 }
 
 button:disabled{
-
-    opacity:.45;
+    opacity:.38;
 
     cursor:not-allowed;
 }
 
-
-/* ========================= */
-/* TAJEMNICZY */
-/* ========================= */
-
 .mystery{
-
     width:58px;
-
     height:58px;
 
     border-radius:12px;
 
-    background:#17233c;
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#111923;
+
+    font-size:31px;
+}
+
+
+/* =========================
+   FLOAT
+========================= */
+
+.float{
+    position:fixed;
+
+    pointer-events:none;
+
+    z-index:5000;
+
+    font-size:22px;
+    font-weight:1000;
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
-
-    font-size:32px;
-}
-
-
-/* ========================= */
-/* + GEM */
-/* ========================= */
-
-.float{
-
-    position:fixed;
-
-    pointer-events:none;
-
-    font-size:22px;
-
-    font-weight:900;
+    gap:5px;
 
     animation:
-        floatup .6s ease-out forwards;
+        floatup .65s ease-out forwards;
 
-    z-index:2000;
+    text-shadow:
+        0 4px 15px rgba(0,0,0,.5);
 }
 
 .float .gem{
-
-    width:20px;
-
-    height:20px;
+    width:24px;
+    height:24px;
 }
 
 @keyframes floatup{
 
     from{
-
         opacity:1;
 
         transform:
-            translateY(0);
+            translateY(0)
+            scale(1);
     }
 
     to{
-
         opacity:0;
 
         transform:
-            translateY(-70px);
+            translateY(-70px)
+            scale(1.08);
     }
+
 }
 
 
-/* ========================= */
-/* PRZYCISK ? */
-/* ========================= */
+/* =========================
+   FIXED BUTTONS
+========================= */
 
-.secret-button{
+.secret-button,
+.code-button,
+.machine-button{
 
     position:fixed;
 
-    left:15px;
+    z-index:3000;
 
-    bottom:15px;
-
-    width:40px;
-
-    height:40px;
+    width:54px;
+    height:54px;
 
     border-radius:50%;
-
-    background:
-        rgba(3,8,23,.95);
-
-    border:
-        2px solid white;
-
-    color:white;
-
-    font-size:20px;
-
-    font-weight:900;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
-    cursor:pointer;
-
-    z-index:9998;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.5);
-}
-
-.secret-button:hover{
-
-    transform:scale(1.12);
-
-    background:#2563a6;
-}
-
-
-/* ========================= */
-/* LUPA */
-/* ========================= */
-
-.code-button{
-
-    position:fixed;
-
-    right:25px;
-
-    bottom:25px;
-
-    width:75px;
-
-    height:75px;
-
-    border-radius:50%;
-
-    background:#111c35;
-
-    border:4px solid white;
-
-    color:white;
-
-    font-size:38px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    cursor:pointer;
-
-    z-index:2147483646;
-
-    box-shadow:
-        0 5px 30px rgba(0,0,0,.8);
-
-    user-select:none;
-}
-
-.code-button:hover{
-
-    transform:scale(1.1);
-
-    background:#2563a6;
-}
-
-
-/* ========================= */
-/* KOŁO FORTUNY - PRZYCISK */
-/* ========================= */
-
-.wheel-button{
-
-    position:fixed;
-
-    left:20px;
-
-    top:100px;
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:50%;
-
-    background:#111c35;
-
-    border:4px solid white;
-
-    color:white;
-
-    font-size:32px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    cursor:pointer;
-
-    z-index:9998;
-
-    box-shadow:
-        0 5px 25px rgba(0,0,0,.7);
-
-    user-select:none;
 
     padding:0;
-
     margin:0;
+
+    background:
+        rgba(10,15,21,.92);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.4);
+
+    font-size:24px;
 }
 
-.wheel-button:hover{
+.secret-button{
+    left:18px;
+    bottom:18px;
+}
 
-    transform:scale(1.1);
+.code-button{
+    right:18px;
+    bottom:18px;
+}
 
-    background:#2563a6;
+.machine-button{
+    left:18px;
+    top:110px;
+}
+
+.secret-button:hover,
+.code-button:hover,
+.machine-button:hover{
+    background:#18221b;
 }
 
 
-/* ========================= */
-/* SECRET */
-/* ========================= */
+/* =========================
+   OVERLAY
+========================= */
 
-#secretOverlay{
-
+.overlay{
     display:none;
 
     position:fixed;
 
     inset:0;
 
-    width:100vw;
-
-    height:100vh;
-
-    background:#050505;
-
-    z-index:5000;
-
-    cursor:pointer;
+    z-index:4000;
 
     align-items:center;
-
     justify-content:center;
-}
 
-#secretImage{
-
-    width:90vw;
-
-    height:90vh;
-
-    object-fit:contain;
-
-    user-select:none;
-
-    pointer-events:none;
-}
-
-.secretHint{
-
-    position:absolute;
-
-    top:20px;
-
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    font-size:15px;
-
-    opacity:.5;
-
-    z-index:2;
-
-    pointer-events:none;
-}
-
-
-/* ========================= */
-/* OKNO KODU */
-/* ========================= */
-
-#codeOverlay{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
+    padding:20px;
 
     background:
         rgba(0,0,0,.82);
 
-    z-index:10000;
-
-    align-items:center;
-
-    justify-content:center;
+    backdrop-filter:
+        blur(8px);
 }
 
-.codeBox{
-
-    width:380px;
-
-    max-width:90%;
-
-    background:#111c35;
-
-    border-radius:25px;
-
-    padding:30px;
-
-    text-align:center;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.7);
+.modal{
+    width:min(620px,100%);
 
     position:relative;
-}
 
-.codeBox h2{
+    border-radius:24px;
 
-    margin:
-        0 0 10px;
-
-    font-size:30px;
-}
-
-.codeBox p{
-
-    font-size:17px;
-}
-
-.codeBox input{
-
-    width:100%;
-
-    padding:14px;
-
-    border:0;
-
-    outline:none;
-
-    border-radius:11px;
-
-    font-size:17px;
-
-    margin-top:8px;
-}
-
-.codeBox button{
-
-    margin-top:12px;
-}
-
-#codeMessage{
-
-    min-height:25px;
-
-    font-weight:900;
-
-    margin-bottom:0;
-}
-
-
-/* ========================= */
-/* X KODU */
-/* ========================= */
-
-.closeCode{
-
-    position:absolute !important;
-
-    top:10px !important;
-
-    right:10px !important;
-
-    width:40px !important;
-
-    height:40px !important;
-
-    margin:0 !important;
-
-    padding:0 !important;
-
-    border-radius:50% !important;
-
-    background:#243454 !important;
-
-    border:0 !important;
-
-    color:white !important;
-
-    font-size:20px !important;
-
-    display:flex !important;
-
-    align-items:center !important;
-
-    justify-content:center !important;
-}
-
-.closeCode:hover{
-
-    background:#d33 !important;
-
-    transform:none !important;
-}
-
-
-/* ========================= */
-/* KOŁO FORTUNY */
-/* ========================= */
-
-#wheelOverlay{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
+    padding:30px;
 
     background:
-        rgba(0,0,0,.88);
-
-    z-index:15000;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-}
-
-.wheelBox{
-
-    width:650px;
-
-    max-width:95vw;
-
-    background:#111c35;
-
-    border-radius:28px;
-
-    padding:30px;
-
-    text-align:center;
-
-    position:relative;
-
-    box-shadow:
-        0 20px 80px rgba(0,0,0,.8);
-}
-
-.closeWheel{
-
-    position:absolute !important;
-
-    top:12px !important;
-
-    right:12px !important;
-
-    width:42px !important;
-
-    height:42px !important;
-
-    margin:0 !important;
-
-    padding:0 !important;
-
-    border-radius:50% !important;
-
-    background:#243454 !important;
-
-    border:0 !important;
-
-    color:white !important;
-
-    font-size:20px !important;
-
-    display:flex !important;
-
-    align-items:center !important;
-
-    justify-content:center !important;
-}
-
-.closeWheel:hover{
-
-    background:#d33 !important;
-
-    transform:none !important;
-}
-
-.wheelBox h2{
-
-    margin:
-        0 0 20px;
-
-    font-size:34px;
-}
-
-.wheelWrapper{
-
-    position:relative;
-
-    width:500px;
-
-    max-width:90vw;
-
-    aspect-ratio:1/1;
-
-    margin:
-        0 auto;
-}
-
-#wheelCanvas{
-
-    width:100%;
-
-    height:100%;
-
-    display:block;
-}
-
-.wheelPointer{
-
-    position:absolute;
-
-    top:-3px;
-
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    width:0;
-
-    height:0;
-
-    border-left:
-        18px solid transparent;
-
-    border-right:
-        18px solid transparent;
-
-    border-top:
-        32px solid white;
-
-    filter:
-        drop-shadow(
-            0 3px 5px rgba(0,0,0,.7)
+        linear-gradient(
+            145deg,
+            #121923,
+            #0b1017
         );
 
-    z-index:5;
-}
-
-.spinButton{
-
-    width:220px !important;
-
-    margin:
-        22px auto 0 !important;
-
-    font-size:20px !important;
-
-    padding:16px !important;
-
-    border-radius:15px !important;
-
-    background:#d33 !important;
-}
-
-.spinButton:hover:not(:disabled){
-
-    background:#ef4444 !important;
-
-    transform:
-        scale(1.03) !important;
-}
-
-.wheelResult{
-
-    min-height:28px;
-
-    margin-top:15px;
-
-    font-size:20px;
-
-    font-weight:900;
-}
-
-
-/* ========================= */
-/* FINAŁ */
-/* ========================= */
-
-#final{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.88);
-
-    z-index:1000;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-}
-
-.finalbox{
-
-    max-width:750px;
-
-    width:100%;
-
-    background:#111c35;
-
-    border-radius:25px;
-
-    padding:45px;
-
-    text-align:center;
+    border:
+        1px solid rgba(255,255,255,.08);
 
     box-shadow:
-        0 20px 60px rgba(0,0,0,.6);
+        0 25px 90px rgba(0,0,0,.6);
 }
 
-.birthdayImage{
+.close{
+    position:absolute;
 
-    width:240px;
+    right:14px;
+    top:14px;
 
-    max-width:80%;
+    width:40px;
+    height:40px;
 
-    max-height:180px;
+    margin:0;
+    padding:0;
 
-    object-fit:contain;
+    border-radius:50%;
 
-    margin-bottom:10px;
+    background:#18212b;
+
+    font-size:20px;
 }
 
-.finalbox .emoji{
+.modal h2{
+    margin:0 0 10px;
 
-    display:none;
+    font-size:28px;
 }
 
-.finalbox h1{
-
-    font-size:42px;
-
-    margin:
-        15px 0;
-}
-
-.finalbox p{
-
-    font-size:21px;
+.modal p{
+    color:#9da8b6;
 
     line-height:1.6;
 }
 
 
-/* ========================= */
-/* TELEFON */
-/* ========================= */
+/* =========================
+   SECRET
+========================= */
+
+.secret-image{
+    width:100%;
+
+    max-height:70vh;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:auto;
+
+    border-radius:18px;
+}
+
+
+/* =========================
+   CODE
+========================= */
+
+.codeInput{
+    width:100%;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    background:#080d13;
+
+    color:white;
+
+    outline:none;
+
+    font-size:18px;
+
+    text-align:center;
+
+    font-weight:900;
+}
+
+.codeMessage{
+    min-height:24px;
+
+    margin-top:10px;
+
+    font-weight:900;
+}
+
+
+/* =========================
+   MACHINE
+========================= */
+
+.machine{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin:20px 0;
+}
+
+.slot{
+    min-width:0;
+
+    height:100px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#080d13;
+
+    border:
+        2px solid #202c37;
+
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,.03);
+
+    overflow:hidden;
+}
+
+.slot img{
+    width:54px !important;
+    height:54px !important;
+
+    min-width:54px;
+    min-height:54px;
+
+    max-width:54px;
+    max-height:54px;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+.slot span{
+    width:54px;
+    height:54px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+
+    line-height:1;
+
+    flex:none;
+}
+
+.machineResult{
+    min-height:50px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:6px;
+
+    text-align:center;
+
+    font-size:18px;
+    font-weight:1000;
+}
+
+.machineResult img{
+    width:23px;
+    height:23px;
+
+    object-fit:contain;
+
+    vertical-align:middle;
+}
+
+
+/* =========================
+   PACZKA
+========================= */
+
+.deliveryBox{
+    display:none;
+
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:2800;
+
+    width:250px;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #161d27,
+            #0b1016
+        );
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 55px rgba(0,0,0,.5);
+
+    cursor:pointer;
+
+    animation:
+        deliveryFloat
+        1s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes deliveryFloat{
+
+    from{
+        transform:
+            translateY(0);
+    }
+
+    to{
+        transform:
+            translateY(-6px);
+    }
+
+}
+
+.deliveryEmoji{
+    font-size:45px;
+
+    text-align:center;
+}
+
+.deliveryTitle{
+    margin-top:6px;
+
+    text-align:center;
+
+    font-size:18px;
+    font-weight:1000;
+}
+
+.deliveryText{
+    margin-top:5px;
+
+    text-align:center;
+
+    color:#98a3b1;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+#final{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:6000;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.9);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+.finalbox{
+    position:relative;
+
+    width:min(760px,100%);
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    padding:42px;
+
+    text-align:center;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151c25,
+            #0b1118
+        );
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.65);
+}
+
+.finalImg{
+    width:min(300px,70%);
+
+    height:auto;
+
+    max-height:300px;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:
+        0
+        auto
+        16px;
+}
+
+.finalbox .emoji{
+    font-size:58px;
+}
+
+.finalbox h1{
+    margin:12px 0;
+
+    font-size:43px;
+}
+
+.finalbox p{
+    font-size:21px;
+
+    line-height:1.65;
+
+    color:#e5eaf0;
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confettiCanvas{
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:7000;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
 
     header{
-
-        height:70px;
+        height:72px;
     }
 
     .logo{
-
-        font-size:25px;
-    }
-
-    .gems{
-
-        right:15px;
-
         font-size:24px;
     }
 
+    .gems{
+        right:13px;
+
+        font-size:22px;
+    }
+
     .gems .gem{
+        width:23px;
+        height:23px;
+    }
 
-        width:24px;
+    .hero{
+        margin-top:16px;
+    }
 
-        height:24px;
+    .heroBar{
+        align-items:flex-start;
+
+        flex-direction:column;
     }
 
     .layout{
-
         grid-template-columns:1fr;
+
+        margin-top:18px;
     }
 
     .shop{
-
         order:2;
     }
 
     .game{
-
-        min-height:600px;
-    }
-
-    .game h1{
-
-        font-size:36px;
-    }
-
-    .hint{
-
-        font-size:17px;
+        min-height:650px;
     }
 
     .character{
-
-        width:320px;
-
-        height:320px;
+        width:340px;
+        height:340px;
     }
 
-    .power{
-
-        font-size:24px;
+    .progressBox{
+        width:82%;
     }
 
-    .power .gem{
-
-        width:28px;
-
-        height:28px;
+    .modal{
+        padding:24px;
     }
 
-    .secret-button{
-
-        width:38px;
-
-        height:38px;
-
-        left:10px;
-
-        bottom:10px;
-
-        font-size:19px;
+    .finalbox{
+        padding:26px 18px;
     }
 
-    .code-button{
+    .finalbox h1{
+        font-size:32px;
+    }
 
-        width:70px;
+    .finalbox p{
+        font-size:17px;
+    }
 
-        height:70px;
-
+    .deliveryBox{
+        left:15px;
         right:15px;
 
         bottom:15px;
 
-        font-size:34px;
+        width:auto;
     }
 
-    .wheel-button{
-
-        width:60px;
-
-        height:60px;
-
-        left:15px;
-
-        top:85px;
-
-        font-size:29px;
-    }
-
-    .wheelBox{
-
-        padding:
-            25px 15px;
-    }
-
-    .wheelBox h2{
-
-        font-size:28px;
-    }
-
-    .wheelWrapper{
-
-        width:90vw;
-    }
-
-    .spinButton{
-
-        width:200px !important;
-    }
-
-    .birthdayImage{
-
-        width:200px;
-
-        max-height:140px;
-    }
 }
 
 
-/* ========================= */
-/* MAŁY TELEFON */
-/* ========================= */
-
-@media(max-width:450px){
+@media(max-width:470px){
 
     .character{
-
-        width:280px;
-
-        height:280px;
+        width:285px;
+        height:285px;
     }
 
-    .game h1{
-
-        font-size:32px;
+    .game{
+        min-height:580px;
     }
 
-    .hint{
+    .progressBox{
+        width:86%;
+    }
 
-        font-size:15px;
+    .machine{
+        gap:7px;
+    }
+
+    .slot{
+        height:90px;
+    }
+
+    .slot img{
+        width:54px !important;
+        height:54px !important;
+    }
+
+    .slot span{
+        width:54px;
+        height:54px;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
 
-<!-- ========================= -->
-<!-- HEADER -->
-<!-- ========================= -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
@@ -1251,24 +1254,65 @@ button:disabled{
 </header>
 
 
-<!-- ========================= -->
-<!-- GRA + SKLEP -->
-<!-- ========================= -->
+<!-- =========================
+     HERO
+========================= -->
+
+<div class="hero">
+
+    <div class="heroBar">
+
+        <div>
+
+            <div class="heroTitle">
+                 ZBIERAJ • ODBLOKUJ • ODKRYWAJ
+            </div>
+
+            <div class="heroSub">
+                Klikaj, zdobywaj gemy aby odblokować kolejne postacie!
+            </div>
+
+        </div>
+
+        <div class="active">
+
+            <span class="activeDot"></span>
+
+            GRA AKTYWNA
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
 
 <div class="layout">
 
 
-    <!-- GRA -->
+    <!-- =========================
+         GRA
+    ========================= -->
 
     <section class="game">
 
-        <h1 id="stage">
+
+        <h1
+            class="stage"
+            id="stage"
+        >
             SPIKE
         </h1>
+
 
         <div class="hint">
             Klikaj postać, żeby zdobywać gemy!
         </div>
+
 
         <img
             id="character"
@@ -1276,6 +1320,9 @@ button:disabled{
             src="spike.png"
             draggable="false"
         >
+
+
+        <!-- POWER -->
 
         <div class="power">
 
@@ -1294,12 +1341,56 @@ button:disabled{
 
         </div>
 
+
+        <!-- PROGRESS BAR -->
+
+        <div class="progressBox">
+
+            <div class="progressTop">
+
+                <span
+                    class="progressTitle"
+                    id="progressTitle"
+                >
+                    POSTĘP
+                </span>
+
+                <span
+                    class="progressNumber"
+                    id="progressNumber"
+                >
+                    0 / 30
+                </span>
+
+            </div>
+
+
+            <div class="progressTrack">
+
+                <div
+                    class="progressFill"
+                    id="progressFill"
+                ></div>
+
+            </div>
+
+
+            <div
+                class="progressSmall"
+                id="progressSmall"
+            >
+                Zdobądź jeszcze 30 gemów
+
+            </div>
+
+        </div>
+
     </section>
 
 
-    <!-- ========================= -->
-    <!-- SKLEP -->
-    <!-- ========================= -->
+    <!-- =========================
+         SKLEP
+    ========================= -->
 
     <aside class="shop">
 
@@ -1342,6 +1433,7 @@ button:disabled{
 
             </div>
 
+
             <div class="price">
 
                 30
@@ -1352,6 +1444,7 @@ button:disabled{
                 >
 
             </div>
+
 
             <button
                 id="carl"
@@ -1397,6 +1490,7 @@ button:disabled{
 
             </div>
 
+
             <div class="price">
 
                 100
@@ -1407,6 +1501,7 @@ button:disabled{
                 >
 
             </div>
+
 
             <button
                 id="rico"
@@ -1452,6 +1547,7 @@ button:disabled{
 
             </div>
 
+
             <div class="price">
 
                 500
@@ -1462,6 +1558,7 @@ button:disabled{
                 >
 
             </div>
+
 
             <button
                 id="grom"
@@ -1497,6 +1594,7 @@ button:disabled{
 
             </div>
 
+
             <div class="price">
 
                 999
@@ -1507,6 +1605,7 @@ button:disabled{
                 >
 
             </div>
+
 
             <button
                 id="finalBtn"
@@ -1522,189 +1621,266 @@ button:disabled{
 </div>
 
 
-<!-- ========================= -->
-<!-- ? -->
-<!-- ========================= -->
+<!-- =========================
+     SECRET BUTTON
+========================= -->
 
-<div
+<button
     class="secret-button"
     onclick="openSecret()"
+    title="Sekret"
 >
     ?
-</div>
+</button>
 
 
-<!-- ========================= -->
-<!-- LUPA -->
-<!-- ========================= -->
+<!-- =========================
+     CODE BUTTON
+========================= -->
 
-<div
+<button
     class="code-button"
     onclick="openCode()"
+    title="Kod"
 >
     🔎
-</div>
+</button>
 
 
-<!-- ========================= -->
-<!-- KOŁO FORTUNY -->
-<!-- ========================= -->
+<!-- =========================
+     MACHINE BUTTON
+========================= -->
 
-<div
-    class="wheel-button"
-    onclick="openWheel()"
+<button
+    class="machine-button"
+    onclick="openMachine()"
+    title="Automat"
 >
-    🎡
-</div>
+    🎰
+</button>
 
 
-<!-- ========================= -->
-<!-- SECRET -->
-<!-- ========================= -->
+<!-- =========================
+     SEKRET
+========================= -->
 
 <div
+    class="overlay"
     id="secretOverlay"
-    onclick="closeSecret()"
+    onclick="closeSecret(event)"
 >
 
-    <div class="secretHint">
-        kliknij, żeby zamknąć
-    </div>
-
-    <img
-        id="secretImage"
-        src="secret.png"
-        alt="Tajemnicze zdjęcie"
-    >
-
-</div>
-
-
-<!-- ========================= -->
-<!-- OKNO KODU -->
-<!-- ========================= -->
-
-<div id="codeOverlay">
-
-    <div
-        class="codeBox"
-        onclick="event.stopPropagation()"
-    >
+    <div class="modal">
 
         <button
-            class="closeCode"
+            class="close"
+            onclick="closeSecret(event)"
+        >
+            ×
+        </button>
+
+
+        <img
+            src="secret.png"
+            class="secret-image"
+            onclick="event.stopPropagation()"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     KOD
+========================= -->
+
+<div
+    class="overlay"
+    id="codeOverlay"
+>
+
+    <div class="modal">
+
+        <button
+            class="close"
             onclick="closeCode()"
         >
-            ✕
+            ×
         </button>
+
 
         <h2>
             🔎 Tajny kod
         </h2>
 
+
         <p>
-            Wpisz znaleziony kod:
+            Wpisz kod, żeby odebrać specjalną nagrodę.
         </p>
+
 
         <input
             id="codeInput"
-            type="text"
+            class="codeInput"
+            maxlength="30"
             placeholder="Wpisz kod..."
             autocomplete="off"
         >
 
-        <button
-            onclick="checkCode()"
-        >
-            SPRAWDŹ
-        </button>
-
-        <p id="codeMessage"></p>
-
-    </div>
-
-</div>
-
-
-<!-- ========================= -->
-<!-- KOŁO FORTUNY -->
-<!-- ========================= -->
-
-<div id="wheelOverlay">
-
-    <div
-        class="wheelBox"
-        onclick="event.stopPropagation()"
-    >
 
         <button
-            class="closeWheel"
-            onclick="closeWheel()"
+            onclick="useCode()"
         >
-            ✕
+            ODBIERZ NAGRODĘ
         </button>
 
-        <h2>
-            🎡 KOŁO FORTUNY
-        </h2>
-
-        <div class="wheelWrapper">
-
-            <canvas
-                id="wheelCanvas"
-                width="600"
-                height="600"
-            >
-            </canvas>
-
-            <div class="wheelPointer"></div>
-
-        </div>
-
-        <button
-            id="spinButton"
-            class="spinButton"
-            onclick="spinWheel()"
-        >
-            ZAKRĘĆ 🎡
-        </button>
 
         <div
-            id="wheelResult"
-            class="wheelResult"
-        >
-        </div>
+            id="codeMessage"
+            class="codeMessage"
+        ></div>
 
     </div>
 
 </div>
 
 
-<!-- ========================= -->
-<!-- FINAŁ -->
-<!-- ========================= -->
+<!-- =========================
+     AUTOMAT
+========================= -->
+
+<div
+    class="overlay"
+    id="machineOverlay"
+>
+
+    <div class="modal">
+
+        <button
+            class="close"
+            onclick="closeMachine()"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            🎰 Automat
+        </h2>
+
+
+        <p>
+            Trzy pola. Jedna nagroda. Powodzenia.
+        </p>
+
+
+        <div class="machine">
+
+
+            <div
+                class="slot"
+                id="slot1"
+            ></div>
+
+
+            <div
+                class="slot"
+                id="slot2"
+            ></div>
+
+
+            <div
+                class="slot"
+                id="slot3"
+            ></div>
+
+        </div>
+
+
+        <button
+            id="machineButton"
+            onclick="spinMachine()"
+        >
+            ZAKRĘĆ AUTOMAT
+        </button>
+
+
+        <div
+            id="machineResult"
+            class="machineResult"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PACZKA KURIERA
+========================= -->
+
+<div
+    id="deliveryBox"
+    class="deliveryBox"
+    onclick="openDelivery()"
+>
+
+    <div class="deliveryEmoji">
+        📦
+    </div>
+
+
+    <div class="deliveryTitle">
+        O! PACZKA!
+    </div>
+
+
+    <div class="deliveryText">
+        Kliknij, żeby odebrać nagrodę.
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FINAŁ
+========================= -->
 
 <div id="final">
 
     <div class="finalbox">
 
+
         <img
             src="urodziny.png"
-            class="birthdayImage"
+            class="finalImg"
         >
+
+
+        <div class="emoji">
+            🎉🎂💖
+        </div>
+
 
         <h1>
             18 URODZINY! 🥳
         </h1>
 
+
         <p>
 
-            Wszystkiego Najlepszego z Okazji 18 Urodzin!!!
-            ❤️
+            Wszystkiego najlepszego z okazji 18 urodzin! ❤️
 
             <br><br>
 
-            Kroooopa!!!
+            Dużo szczęścia, zdrowia, hajsu,
+            spełnienia wszystkich planów
+            i samych dobrych ludzi wokół!
+
+            <br><br>
+
+            Kroooopa!!! 🎉
 
         </p>
 
@@ -1716,9 +1892,9 @@ button:disabled{
 <script>
 
 
-/* ========================= */
-/* ZMIENNE */
-/* ========================= */
+/* =========================
+   PODSTAWOWE DANE
+========================= */
 
 let gems = 0;
 
@@ -1728,736 +1904,258 @@ let stage = "spike";
 
 let codeUsed = false;
 
-
-/* ========================= */
-/* BONUS 2X */
-/* ========================= */
-
 let doubleClicks = 0;
 
+let machineSpinning = false;
 
-/* ========================= */
-/* ELEMENTY */
-/* ========================= */
+let deliveryVisible = false;
+
+let deliveryClaimed = false;
+
+
+/* =========================
+   ELEMENTY
+========================= */
 
 const character =
-    document.getElementById(
-        "character"
-    );
+    document.getElementById("character");
 
 const gemsEl =
-    document.getElementById(
-        "gems"
-    );
+    document.getElementById("gems");
 
 const powerEl =
-    document.getElementById(
-        "power"
-    );
+    document.getElementById("power");
 
 const stageEl =
-    document.getElementById(
-        "stage"
-    );
+    document.getElementById("stage");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const progressNumber =
+    document.getElementById("progressNumber");
+
+const progressTitle =
+    document.getElementById("progressTitle");
+
+const progressSmall =
+    document.getElementById("progressSmall");
 
 
-/* ========================= */
-/* KOŁO */
-/* ========================= */
+/* =========================
+   PROGRESS TARGET
+========================= */
 
-const wheelCanvas =
-    document.getElementById(
-        "wheelCanvas"
-    );
+function getProgressTarget(){
 
-const wheelCtx =
-    wheelCanvas.getContext(
-        "2d"
-    );
-
-
-const wheelPrizes = [
-
-    {
-        name:
-            "2× KLIKNIĘCIA",
-
-        type:
-            "double"
-    },
-
-    {
-        name:
-            "+50 💎",
-
-        type:
-            "plus50"
-    },
-
-    {
-        name:
-            "+25 💎",
-
-        type:
-            "plus25"
-    },
-
-    {
-        name:
-            "NIC",
-
-        type:
-            "nothing"
-    },
-
-    {
-        name:
-            "-50 💎",
-
-        type:
-            "minus50"
+    if(stage === "spike"){
+        return 30;
     }
 
-];
+    if(stage === "carl"){
+        return 100;
+    }
+
+    if(stage === "rico"){
+        return 500;
+    }
+
+    if(stage === "grom"){
+        return 999;
+    }
+
+    return 999;
+
+}
 
 
-let wheelRotation = 0;
+/* =========================
+   PROGRESS BAR
+========================= */
 
-let wheelSpinning = false;
+function renderProgress(){
 
+    const target =
+        getProgressTarget();
 
-/* ========================= */
-/* RYSOWANIE KOŁA */
-/* ========================= */
-
-function drawWheel(){
-
-    const center =
-        wheelCanvas.width / 2;
-
-    const radius =
-        250;
-
-    const section =
-        (Math.PI * 2) /
-        wheelPrizes.length;
+    const percentage =
+        Math.min(
+            100,
+            (gems / target) * 100
+        );
 
 
-    wheelCtx.clearRect(
-        0,
-        0,
-        wheelCanvas.width,
-        wheelCanvas.height
-    );
+    progressFill.style.width =
+        percentage + "%";
 
 
-    wheelCtx.save();
-
-    wheelCtx.translate(
-        center,
-        center
-    );
-
-    wheelCtx.rotate(
-        wheelRotation
-    );
+    progressNumber.textContent =
+        Math.min(gems,target)
+        + " / "
+        + target;
 
 
-    for(
-        let i = 0;
-        i < wheelPrizes.length;
-        i++
-    ){
+    if(stage === "spike"){
 
-        const start =
-            -Math.PI / 2 +
-            i * section;
+        progressTitle.textContent =
+            "POSTĘP DO CARLA";
 
-        const end =
-            start + section;
+    }
+
+    else if(stage === "carl"){
+
+        progressTitle.textContent =
+            "POSTĘP DO RICO";
+
+    }
+
+    else if(stage === "rico"){
+
+        progressTitle.textContent =
+            "POSTĘP DO GROMA";
+
+    }
+
+    else if(stage === "grom"){
+
+        progressTitle.textContent =
+            "POSTĘP DO TAJEMNICZEGO";
+
+    }
 
 
-        wheelCtx.beginPath();
-
-        wheelCtx.moveTo(
+    const left =
+        Math.max(
             0,
-            0
-        );
-
-        wheelCtx.arc(
-            0,
-            0,
-            radius,
-            start,
-            end
-        );
-
-        wheelCtx.closePath();
-
-
-        const colors = [
-
-            "#ef4444",
-            "#22c55e",
-            "#3b82f6",
-            "#f59e0b",
-            "#8b5cf6"
-
-        ];
-
-
-        wheelCtx.fillStyle =
-            colors[i];
-
-
-        wheelCtx.fill();
-
-
-        wheelCtx.lineWidth =
-            5;
-
-        wheelCtx.strokeStyle =
-            "#ffffff";
-
-        wheelCtx.stroke();
-
-
-        const middle =
-            start +
-            section / 2;
-
-
-        wheelCtx.save();
-
-
-        wheelCtx.rotate(
-            middle
+            target - gems
         );
 
 
-        wheelCtx.textAlign =
-            "center";
+    if(left > 0){
 
-        wheelCtx.textBaseline =
-            "middle";
-
-
-        wheelCtx.fillStyle =
-            "#ffffff";
-
-        wheelCtx.font =
-            "900 24px Arial";
-
-
-        wheelCtx.fillText(
-            wheelPrizes[i].name,
-            radius * .62,
-            0
-        );
-
-
-        wheelCtx.restore();
+        progressSmall.textContent =
+            "Zdobądź jeszcze "
+            + left
+            + " gemów";
 
     }
+    else{
 
-
-    /* ŚRODEK KOŁA */
-
-    wheelCtx.beginPath();
-
-    wheelCtx.arc(
-        0,
-        0,
-        55,
-        0,
-        Math.PI * 2
-    );
-
-    wheelCtx.fillStyle =
-        "#111c35";
-
-    wheelCtx.fill();
-
-    wheelCtx.lineWidth =
-        6;
-
-    wheelCtx.strokeStyle =
-        "#ffffff";
-
-    wheelCtx.stroke();
-
-
-    wheelCtx.fillStyle =
-        "#ffffff";
-
-    wheelCtx.font =
-        "900 32px Arial";
-
-    wheelCtx.textAlign =
-        "center";
-
-    wheelCtx.textBaseline =
-        "middle";
-
-    wheelCtx.fillText(
-        "🎡",
-        0,
-        0
-    );
-
-
-    wheelCtx.restore();
-
-}
-
-
-/* ========================= */
-/* OTWIERANIE KOŁA */
-/* ========================= */
-
-function openWheel(){
-
-    document.getElementById(
-        "wheelOverlay"
-    ).style.display =
-        "flex";
-
-    document.getElementById(
-        "wheelResult"
-    ).textContent =
-        "";
-
-    drawWheel();
-
-}
-
-
-/* ========================= */
-/* ZAMYKANIE KOŁA */
-/* ========================= */
-
-function closeWheel(){
-
-    document.getElementById(
-        "wheelOverlay"
-    ).style.display =
-        "none";
-
-}
-
-
-/* ========================= */
-/* KRĘCENIE KOŁEM */
-/* ========================= */
-
-function spinWheel(){
-
-    if(wheelSpinning){
-
-        return;
-
-    }
-
-
-    wheelSpinning =
-        true;
-
-
-    document.getElementById(
-        "spinButton"
-    ).disabled =
-        true;
-
-
-    document.getElementById(
-        "wheelResult"
-    ).textContent =
-        "🎡 Kręci się...";
-
-
-    const randomPrize =
-        Math.floor(
-            Math.random() *
-            wheelPrizes.length
-        );
-
-
-    const section =
-        (Math.PI * 2) /
-        wheelPrizes.length;
-
-
-    const targetCenter =
-        randomPrize *
-        section +
-        section / 2;
-
-
-    const current =
-        wheelRotation %
-        (Math.PI * 2);
-
-
-    const desired =
-        (Math.PI * 2) -
-        targetCenter;
-
-
-    let difference =
-        desired - current;
-
-
-    if(difference < 0){
-
-        difference +=
-            Math.PI * 2;
-
-    }
-
-
-    const extraTurns =
-        Math.PI * 2 *
-        6;
-
-
-    const finalRotation =
-        wheelRotation +
-        extraTurns +
-        difference;
-
-
-    const startRotation =
-        wheelRotation;
-
-
-    const duration =
-        5000;
-
-
-    const startTime =
-        performance.now();
-
-
-    function animate(now){
-
-        const elapsed =
-            now -
-            startTime;
-
-
-        const progress =
-            Math.min(
-                elapsed / duration,
-                1
-            );
-
-
-        const eased =
-            1 -
-            Math.pow(
-                1 - progress,
-                4
-            );
-
-
-        wheelRotation =
-            startRotation +
-            (
-                finalRotation -
-                startRotation
-            ) * eased;
-
-
-        drawWheel();
-
-
-        if(progress < 1){
-
-            requestAnimationFrame(
-                animate
-            );
-
-        }
-        else{
-
-            wheelRotation =
-                finalRotation;
-
-            drawWheel();
-
-            givePrize(
-                wheelPrizes[randomPrize]
-            );
-
-            wheelSpinning =
-                false;
-
-            document.getElementById(
-                "spinButton"
-            ).disabled =
-                false;
-
-        }
-
-    }
-
-
-    requestAnimationFrame(
-        animate
-    );
-
-}
-
-
-/* ========================= */
-/* NAGRODA */
-/* ========================= */
-
-function givePrize(prize){
-
-    const result =
-        document.getElementById(
-            "wheelResult"
-        );
-
-
-    if(prize.type === "double"){
-
-        doubleClicks +=
-            10;
-
-
-        result.innerHTML =
-            "🔥 <strong>2× KLIKNIĘCIA!</strong><br>" +
-            "Następne 10 kliknięć daje podwójne gemy!";
-
-    }
-
-
-    else if(prize.type === "plus50"){
-
-        gems +=
-            50;
-
-
-        updateCounter();
-
-        updateShop();
-
-
-        result.innerHTML =
-            "🎉 <strong>+50 💎</strong>";
-
-    }
-
-
-    else if(prize.type === "plus25"){
-
-        gems +=
-            25;
-
-
-        updateCounter();
-
-        updateShop();
-
-
-        result.innerHTML =
-            "🎉 <strong>+25 💎</strong>";
-
-    }
-
-
-    else if(prize.type === "nothing"){
-
-        result.innerHTML =
-            "😂 <strong>NIC XD</strong>";
-
-    }
-
-
-    else if(prize.type === "minus50"){
-
-        gems -=
-            50;
-
-
-        if(gems < 0){
-
-            gems = 0;
-
-        }
-
-
-        updateCounter();
-
-        updateShop();
-
-
-        result.innerHTML =
-            "💀 <strong>-50 💎</strong>";
+        progressSmall.textContent =
+            "🎉 Możesz teraz odblokować!";
 
     }
 
 }
 
 
-/* ========================= */
-/* SKLEP */
-/* ========================= */
+/* =========================
+   RENDER
+========================= */
 
-function updateShop(){
-
-    document.getElementById(
-        "carl"
-    ).disabled =
-        gems < 30;
-
-
-    document.getElementById(
-        "rico"
-    ).disabled =
-        gems < 100;
-
-
-    document.getElementById(
-        "grom"
-    ).disabled =
-        gems < 500;
-
-
-    document.getElementById(
-        "finalBtn"
-    ).disabled =
-        gems < 999;
-
-}
-
-
-/* ========================= */
-/* LICZNIK */
-/* ========================= */
-
-function updateCounter(){
+function render(){
 
     gemsEl.textContent =
         gems;
 
+
     powerEl.textContent =
         power;
 
-}
-
-
-/* ========================= */
-/* POSTAĆ */
-/* ========================= */
-
-function renderCharacter(){
 
     stageEl.textContent =
         stage.toUpperCase();
 
+
     character.src =
-        stage +
-        ".png";
+        stage + ".png";
+
+
+    document.getElementById("carl").disabled =
+        gems < 30;
+
+
+    document.getElementById("rico").disabled =
+        gems < 100;
+
+
+    document.getElementById("grom").disabled =
+        gems < 500;
+
+
+    document.getElementById("finalBtn").disabled =
+        gems < 999;
+
+
+    renderProgress();
 
 }
 
 
-/* ========================= */
-/* RENDER */
-/* ========================= */
+/* =========================
+   KLIK POSTACIĄ
+========================= */
 
-function render(){
+character.onclick = function(e){
 
-    updateCounter();
-
-    updateShop();
-
-    renderCharacter();
-
-}
+    let gained =
+        power;
 
 
-/* ========================= */
-/* KLIKANIE POSTACI */
-/* ========================= */
+    if(doubleClicks > 0){
 
-character.addEventListener(
-    "click",
-    function(e){
+        gained =
+            power * 2;
 
-        let clickPower =
-            power;
-
-
-        if(doubleClicks > 0){
-
-            clickPower *=
-                2;
-
-            doubleClicks--;
-
-        }
-
-
-        gems +=
-            clickPower;
-
-
-        updateCounter();
-
-        updateShop();
-
-
-        const f =
-            document.createElement(
-                "div"
-            );
-
-
-        f.className =
-            "float";
-
-
-        f.innerHTML =
-            "+" +
-            clickPower +
-            ' <img src="gem.png" class="gem">';
-
-
-        f.style.left =
-            e.clientX +
-            "px";
-
-
-        f.style.top =
-            e.clientY +
-            "px";
-
-
-        document.body.appendChild(
-            f
-        );
-
-
-        setTimeout(
-            function(){
-
-                f.remove();
-
-            },
-            600
-        );
+        doubleClicks--;
 
     }
-);
 
 
-/* ========================= */
-/* KUPOWANIE POSTACI */
-/* ========================= */
+    gems +=
+        gained;
+
+
+    render();
+
+
+    const f =
+        document.createElement("div");
+
+
+    f.className =
+        "float";
+
+
+    f.innerHTML =
+        "+"
+        + gained
+        + '<img src="gem.png" class="gem">';
+
+
+    f.style.left =
+        e.clientX + "px";
+
+
+    f.style.top =
+        e.clientY + "px";
+
+
+    document.body.appendChild(f);
+
+
+    setTimeout(() => {
+
+        f.remove();
+
+    },650);
+
+};
+
+
+/* =========================
+   SKLEP
+========================= */
 
 function buy(
     cost,
@@ -2466,9 +2164,7 @@ function buy(
 ){
 
     if(gems < cost){
-
         return;
-
     }
 
 
@@ -2484,25 +2180,19 @@ function buy(
         name;
 
 
-    updateCounter();
-
-    updateShop();
-
-    renderCharacter();
+    render();
 
 }
 
 
-/* ========================= */
-/* FINAŁ */
-/* ========================= */
+/* =========================
+   FINAŁ
+========================= */
 
 function finale(){
 
     if(gems < 999){
-
         return;
-
     }
 
 
@@ -2517,9 +2207,9 @@ function finale(){
 }
 
 
-/* ========================= */
-/* SECRET */
-/* ========================= */
+/* =========================
+   SEKRET
+========================= */
 
 function openSecret(){
 
@@ -2531,19 +2221,27 @@ function openSecret(){
 }
 
 
-function closeSecret(){
+function closeSecret(e){
 
-    document.getElementById(
+    if(
+        !e ||
+        e.target.id ===
         "secretOverlay"
-    ).style.display =
-        "none";
+    ){
+
+        document.getElementById(
+            "secretOverlay"
+        ).style.display =
+            "none";
+
+    }
 
 }
 
 
-/* ========================= */
-/* KOD */
-/* ========================= */
+/* =========================
+   KOD
+========================= */
 
 function openCode(){
 
@@ -2553,28 +2251,13 @@ function openCode(){
         "flex";
 
 
-    document.getElementById(
-        "codeInput"
-    ).value =
-        "";
+    setTimeout(() => {
 
+        document.getElementById(
+            "codeInput"
+        ).focus();
 
-    document.getElementById(
-        "codeMessage"
-    ).textContent =
-        "";
-
-
-    setTimeout(
-        function(){
-
-            document.getElementById(
-                "codeInput"
-            ).focus();
-
-        },
-        100
-    );
+    },100);
 
 }
 
@@ -2589,15 +2272,12 @@ function closeCode(){
 }
 
 
-function checkCode(){
+function useCode(){
 
     const input =
         document.getElementById(
             "codeInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+        );
 
 
     const message =
@@ -2606,49 +2286,574 @@ function checkCode(){
         );
 
 
-    if(codeUsed){
+    const code =
+        input.value
+        .trim()
+        .toLowerCase();
+
+
+    if(code !== "zir081"){
+
+        message.style.color =
+            "#ff6b6b";
 
         message.textContent =
-            "❌ Ten kod został już użyty.";
+            "❌ Zły kod.";
 
         return;
 
     }
 
 
-    if(input === "zir081"){
+    if(codeUsed){
 
-        gems +=
-            100;
-
-
-        codeUsed =
-            true;
-
-
-        updateCounter();
-
-        updateShop();
-
+        message.style.color =
+            "#ffb86b";
 
         message.textContent =
-            "🎉 Kod poprawny! +100 💎";
+            "⚠️ Ten kod został już wykorzystany.";
+
+        return;
 
     }
 
-    else{
 
-        message.textContent =
-            "❌ Nieprawidłowy kod.";
+    gems +=
+        100;
 
-    }
+
+    codeUsed =
+        true;
+
+
+    render();
+
+
+    message.style.color =
+        "#4ade80";
+
+
+    message.innerHTML =
+        '🎉 Otrzymujesz <strong>+100</strong> ' +
+        '<img src="gem.png" ' +
+        'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
 
 }
 
 
-/* ========================= */
-/* KONFETTI */
-/* ========================= */
+/* =========================
+   AUTOMAT
+========================= */
+
+const machinePrizes = [
+
+    {
+        file:"gem.png",
+        type:"plus5",
+        text:"+5 gemów"
+    },
+
+    {
+        file:"coin.png",
+        type:"plus25",
+        text:"+25 gemów"
+    },
+
+    {
+        file:"powerpoints.png",
+        type:"plus80",
+        text:"+80 gemów"
+    },
+
+    {
+        file:"blings.png",
+        type:"double",
+        text:"2× gemy przez 10 kliknięć"
+    },
+
+    {
+        file:null,
+        type:"nothing",
+        text:"NIC XD"
+    },
+
+    {
+        file:"crown",
+        type:"jackpot",
+        text:"JACKPOT! +300 gemów!"
+    }
+
+];
+
+
+function openMachine(){
+
+    document.getElementById(
+        "machineOverlay"
+    ).style.display =
+        "flex";
+
+
+    setSlotContent(
+        "slot1",
+        machinePrizes[0]
+    );
+
+
+    setSlotContent(
+        "slot2",
+        machinePrizes[1]
+    );
+
+
+    setSlotContent(
+        "slot3",
+        machinePrizes[2]
+    );
+
+}
+
+
+function closeMachine(){
+
+    document.getElementById(
+        "machineOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+function setSlotContent(
+    id,
+    prize
+){
+
+    const slot =
+        document.getElementById(id);
+
+
+    slot.innerHTML =
+        "";
+
+
+    if(prize.file === null){
+
+        const span =
+            document.createElement(
+                "span"
+            );
+
+
+        span.textContent =
+            "✖";
+
+
+        slot.appendChild(span);
+
+        return;
+
+    }
+
+
+    if(prize.file === "crown"){
+
+        const span =
+            document.createElement(
+                "span"
+            );
+
+
+        span.textContent =
+            "👑";
+
+
+        slot.appendChild(span);
+
+        return;
+
+    }
+
+
+    const img =
+        document.createElement(
+            "img"
+        );
+
+
+    img.src =
+        prize.file;
+
+
+    img.alt =
+        "";
+
+
+    slot.appendChild(img);
+
+}
+
+
+function spinMachine(){
+
+    if(machineSpinning){
+        return;
+    }
+
+
+    machineSpinning =
+        true;
+
+
+    const button =
+        document.getElementById(
+            "machineButton"
+        );
+
+
+    const result =
+        document.getElementById(
+            "machineResult"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    result.innerHTML =
+        "🎰 Losowanie...";
+
+
+    let ticks =
+        0;
+
+
+    const interval =
+        setInterval(() => {
+
+
+            for(
+                let i=1;
+                i<=3;
+                i++
+            ){
+
+                const randomPrize =
+                    machinePrizes[
+                        Math.floor(
+                            Math.random() *
+                            machinePrizes.length
+                        )
+                    ];
+
+
+                setSlotContent(
+                    "slot" + i,
+                    randomPrize
+                );
+
+            }
+
+
+            ticks++;
+
+
+            if(ticks >= 12){
+
+                clearInterval(
+                    interval
+                );
+
+
+                const prize =
+                    machinePrizes[
+                        Math.floor(
+                            Math.random() *
+                            machinePrizes.length
+                        )
+                    ];
+
+
+                setSlotContent(
+                    "slot1",
+                    prize
+                );
+
+
+                setSlotContent(
+                    "slot2",
+                    prize
+                );
+
+
+                setSlotContent(
+                    "slot3",
+                    prize
+                );
+
+
+                giveMachinePrize(
+                    prize
+                );
+
+            }
+
+
+        },120);
+
+}
+
+
+function giveMachinePrize(
+    prize
+){
+
+    const result =
+        document.getElementById(
+            "machineResult"
+        );
+
+
+    if(prize.type === "plus5"){
+
+        gems +=
+            5;
+
+
+        render();
+
+
+        result.innerHTML =
+            '🎉 <strong>+5</strong> ' +
+            '<img src="gem.png" ' +
+            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
+
+    }
+
+
+    else if(
+        prize.type === "plus25"
+    ){
+
+        gems +=
+            25;
+
+
+        render();
+
+
+        result.innerHTML =
+            '🎉 <strong>+25</strong> ' +
+            '<img src="gem.png" ' +
+            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
+
+    }
+
+
+    else if(
+        prize.type === "plus80"
+    ){
+
+        gems +=
+            80;
+
+
+        render();
+
+
+        result.innerHTML =
+            '🔥 <strong>+80</strong> ' +
+            '<img src="gem.png" ' +
+            'style="width:23px;height:23px;object-fit:contain;vertical-align:middle;">';
+
+    }
+
+
+    else if(
+        prize.type === "double"
+    ){
+
+        doubleClicks +=
+            10;
+
+
+        result.innerHTML =
+            '⚡ <strong>2× GEMY!</strong><br>' +
+            'Następne 10 kliknięć daje podwójne gemy.';
+
+    }
+
+
+    else if(
+        prize.type === "nothing"
+    ){
+
+        result.innerHTML =
+            '😂 <strong>NIC XD</strong>';
+
+    }
+
+
+    else if(
+        prize.type === "jackpot"
+    ){
+
+        gems +=
+            300;
+
+
+        render();
+
+
+        result.innerHTML =
+            '👑 <strong>JACKPOT! +300</strong> ' +
+            '<img src="gem.png" ' +
+            'style="width:27px;height:27px;object-fit:contain;vertical-align:middle;">';
+
+    }
+
+
+    document.getElementById(
+        "machineButton"
+    ).disabled =
+        false;
+
+
+    machineSpinning =
+        false;
+
+}
+
+
+/* =========================
+   PACZKA KURIERA
+========================= */
+
+function scheduleDelivery(){
+
+    const delay =
+        Math.floor(
+            Math.random() *
+            (45000 - 15000 + 1)
+        ) + 15000;
+
+
+    setTimeout(() => {
+
+        showDelivery();
+
+    },delay);
+
+}
+
+
+function showDelivery(){
+
+    if(deliveryVisible){
+        return;
+    }
+
+
+    deliveryVisible =
+        true;
+
+
+    deliveryClaimed =
+        false;
+
+
+    const box =
+        document.getElementById(
+            "deliveryBox"
+        );
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+function openDelivery(){
+
+    if(
+        !deliveryVisible ||
+        deliveryClaimed
+    ){
+
+        return;
+
+    }
+
+
+    deliveryClaimed =
+        true;
+
+
+    deliveryVisible =
+        false;
+
+
+    const box =
+        document.getElementById(
+            "deliveryBox"
+        );
+
+
+    const rewards = [
+
+        10,
+        25,
+        50,
+        100,
+        15
+
+    ];
+
+
+    const reward =
+        rewards[
+            Math.floor(
+                Math.random() *
+                rewards.length
+            )
+        ];
+
+
+    gems +=
+        reward;
+
+
+    render();
+
+
+    box.style.display =
+        "none";
+
+
+    box.querySelector(
+        ".deliveryTitle"
+    ).textContent =
+        "O! PACZKA!";
+
+
+    box.querySelector(
+        ".deliveryText"
+    ).textContent =
+        "Kliknij, żeby odebrać nagrodę.";
+
+
+    /* NOWA PACZKA PÓŹNIEJ */
+
+    scheduleDelivery();
+
+}
+
+
+/* =========================
+   KONFETTI
+========================= */
 
 function confetti(){
 
@@ -2658,17 +2863,8 @@ function confetti(){
         );
 
 
-    canvas.style.position =
-        "fixed";
-
-    canvas.style.inset =
-        "0";
-
-    canvas.style.pointerEvents =
-        "none";
-
-    canvas.style.zIndex =
-        "6000";
+    canvas.className =
+        "confettiCanvas";
 
 
     document.body.appendChild(
@@ -2677,24 +2873,36 @@ function confetti(){
 
 
     const ctx =
-        canvas.getContext(
-            "2d"
-        );
+        canvas.getContext("2d");
 
 
-    canvas.width =
-        window.innerWidth;
+    function resize(){
 
-    canvas.height =
-        window.innerHeight;
+        canvas.width =
+            window.innerWidth;
+
+
+        canvas.height =
+            window.innerHeight;
+
+    }
+
+
+    resize();
+
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
 
 
     const pieces = [];
 
 
     for(
-        let i = 0;
-        i < 250;
+        let i=0;
+        i<260;
         i++
     ){
 
@@ -2708,12 +2916,10 @@ function confetti(){
                 -20,
 
             size:
-                Math.random() *
-                10 + 5,
+                Math.random() * 10 + 5,
 
             speed:
-                Math.random() *
-                5 + 2,
+                Math.random() * 5 + 2,
 
             drift:
                 (Math.random()-.5)*3,
@@ -2726,6 +2932,10 @@ function confetti(){
     }
 
 
+    let frames =
+        0;
+
+
     function draw(){
 
         ctx.clearRect(
@@ -2736,65 +2946,73 @@ function confetti(){
         );
 
 
-        pieces.forEach(
-            function(p){
+        pieces.forEach(p => {
 
-                p.y +=
-                    p.speed;
-
-
-                p.x +=
-                    p.drift;
+            p.y +=
+                p.speed;
 
 
-                p.rotation +=
-                    5;
+            p.x +=
+                p.drift;
 
 
-                ctx.save();
+            p.rotation +=
+                5;
 
 
-                ctx.translate(
-                    p.x,
-                    p.y
-                );
+            ctx.save();
 
 
-                ctx.rotate(
-                    p.rotation *
-                    Math.PI /
-                    180
-                );
+            ctx.translate(
+                p.x,
+                p.y
+            );
 
 
-                ctx.fillStyle =
-                    "hsl(" +
-                    Math.random()*360 +
-                    ",90%,60%)";
+            ctx.rotate(
+                p.rotation *
+                Math.PI /
+                180
+            );
 
 
-                ctx.fillRect(
-
-                    -p.size/2,
-
-                    -p.size/2,
-
-                    p.size,
-
-                    p.size
-
-                );
+            ctx.fillStyle =
+                "hsl(" +
+                (
+                    Math.random() *
+                    360
+                ) +
+                ",90%,60%)";
 
 
-                ctx.restore();
+            ctx.fillRect(
+                -p.size/2,
+                -p.size/2,
+                p.size,
+                p.size
+            );
 
-            }
-        );
+
+            ctx.restore();
+
+        });
 
 
-        requestAnimationFrame(
-            draw
-        );
+        frames++;
+
+
+        if(frames < 700){
+
+            requestAnimationFrame(
+                draw
+            );
+
+        }
+        else{
+
+            canvas.remove();
+
+        }
 
     }
 
@@ -2804,13 +3022,13 @@ function confetti(){
 }
 
 
-/* ========================= */
-/* START */
-/* ========================= */
+/* =========================
+   START
+========================= */
 
 render();
 
-drawWheel();
+scheduleDelivery();
 
 </script>
 
