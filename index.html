@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zir081 Mini Game</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,red,green);
+    background-attachment:fixed;
+    color:white;
+}
+
+/* GÓRNY PASEK */
+
+header{
+    height:80px;
+    background:rgba(2,10,30,.75);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:0 25px;
+    box-shadow:0 3px 15px rgba(0,0,0,.4);
+    backdrop-filter:blur(8px);
+}
+
+.logo{
+    font-size:36px;
+    font-weight:900;
+}
+
+/* LICZNIK GEMÓW */
+
+.gems{
+    position:absolute;
+    right:25px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:32px;
+    font-weight:900;
+}
+
+.gem{
+    width:30px;
+    height:30px;
+    object-fit:contain;
+    vertical-align:middle;
+}
+
+
+/* GŁÓWNY UKŁAD */
+
+.layout{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:1fr 310px;
+    gap:25px;
+}
+
+
+/* GRA */
+
+.game{
+    min-height:700px;
+    background:rgba(3,8,23,.82);
+    border-radius:24px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.game h1{
+    margin:0 0 12px;
+    font-size:44px;
+    font-weight:900;
+}
+
+.hint{
+    opacity:.75;
+    margin-bottom:20px;
+    font-size:21px;
+}
+
+.character{
+    width:400px;
+    height:400px;
+    object-fit:contain;
+    cursor:pointer;
+    user-select:none;
+    transition:.12s;
+    filter:drop-shadow(0 15px 20px rgba(0,0,0,.5));
+}
+
+.character:hover{
+    transform:scale(1.04);
+}
+
+.character:active{
+    transform:scale(.94);
+}
+
+.power{
+    margin-top:18px;
+    font-size:28px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.power .gem{
+    width:32px;
+    height:32px;
+}
+
+
+/* SKLEP */
+
+.shop{
+    background:rgba(3,8,23,.82);
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.shop h2{
+    margin:0 0 18px;
+    font-size:26px;
+}
+
+.item{
+    background:rgba(20,30,55,.8);
+    border-radius:18px;
+    padding:14px;
+    margin-bottom:14px;
+}
+
+.itemtop{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.mini{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    background:#17233c;
+    border-radius:12px;
+}
+
+.item strong{
+    display:block;
+    font-size:17px;
+}
+
+.item small{
+    display:block;
+    margin-top:4px;
+    color:#b9c8dc;
+    font-size:14px;
+}
+
+.price{
+    margin-top:10px;
+    font-size:17px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.price .gem{
+    width:19px;
+    height:19px;
+}
+
+button{
+    width:100%;
+    margin-top:10px;
+    border:0;
+    border-radius:11px;
+    padding:13px;
+    background:#2563a6;
+    color:white;
+    font-weight:900;
+    cursor:pointer;
+    font-size:14px;
+    transition:.15s;
+}
+
+button:hover:not(:disabled){
+    background:#3186d1;
+    transform:translateY(-1px);
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+
+/* TAJEMNICZY */
+
+.mystery{
+    width:58px;
+    height:58px;
+    border-radius:12px;
+    background:#17233c;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+}
+
+
+/* + GEM */
+
+.float{
+    position:fixed;
+    pointer-events:none;
+    font-size:22px;
+    font-weight:900;
+    animation:floatup .6s ease-out forwards;
+    z-index:2000;
+}
+
+.float .gem{
+    width:20px;
+    height:20px;
+}
+
+@keyframes floatup{
+
+    from{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    to{
+        opacity:0;
+        transform:translateY(-70px);
+    }
+
+}
+
+
+/* ========================= */
+/* ZNAK ZAPYTANIA */
+/* ========================= */
+
+.secret-button{
+
+    position:fixed;
+
+    left:15px;
+    bottom:15px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:rgba(3,8,23,.9);
+
+    border:2px solid rgba(255,255,255,.7);
+
+    color:white;
+
+    font-size:20px;
+    font-weight:900;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:500;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.5);
+
+    transition:.2s;
+}
+
+.secret-button:hover{
+
+    transform:scale(1.12);
+
+    background:#2563a6;
+
+    border-color:white;
+
+}
+
+.secret-button:active{
+
+    transform:scale(.95);
+
+}
+
+
+/* ========================= */
+/* SECRET - NIERUCHOME */
+/* ========================= */
+
+#secretOverlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+    height:100vh;
+
+    background:#050505;
+
+    z-index:5000;
+
+    cursor:pointer;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+
+/* ZDJĘCIE SECRET */
+
+#secretImage{
+
+    width:90vw;
+    height:90vh;
+
+    object-fit:contain;
+
+    user-select:none;
+
+    pointer-events:none;
+
+}
+
+
+/* NAPIS */
+
+.secretHint{
+
+    position:absolute;
+
+    top:20px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:15px;
+
+    opacity:.5;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+
+/* ========================= */
+/* FINAŁ */
+/* ========================= */
+
+#final{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.88);
+
+    z-index:1000;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.finalbox{
+
+    max-width:750px;
+    width:100%;
+
+    background:#111c35;
+
+    border-radius:25px;
+
+    padding:45px;
+
+    text-align:center;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+
+/* WŁASNY OBRAZEK URODZINOWY */
+
+.birthdayImage{
+
+    width:240px;
+
+    max-width:80%;
+
+    max-height:180px;
+
+    object-fit:contain;
+
+    margin-bottom:10px;
+
+}
+
+
+/* EMOTKI */
+
+.finalbox .emoji{
+    display:none;
+}
+
+
+/* NAPIS */
+
+.finalbox h1{
+    font-size:42px;
+    margin:15px 0;
+}
+
+.finalbox p{
+    font-size:21px;
+    line-height:1.6;
+}
+
+
+/* ========================= */
+/* TELEFON */
+/* ========================= */
+
+@media(max-width:800px){
+
+    header{
+        height:70px;
+    }
+
+    .logo{
+        font-size:25px;
+    }
+
+    .gems{
+        right:15px;
+        font-size:24px;
+    }
+
+    .gems .gem{
+        width:24px;
+        height:24px;
+    }
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .shop{
+        order:2;
+    }
+
+    .game{
+        min-height:600px;
+    }
+
+    .game h1{
+        font-size:36px;
+    }
+
+    .hint{
+        font-size:17px;
+    }
+
+    .character{
+        width:320px;
+        height:320px;
+    }
+
+    .power{
+        font-size:24px;
+    }
+
+    .power .gem{
+        width:28px;
+        height:28px;
+    }
+
+    .secret-button{
+        width:38px;
+        height:38px;
+        left:10px;
+        bottom:10px;
+        font-size:19px;
+    }
+
+    #secretImage{
+        width:90vw;
+        height:85vh;
+    }
+
+    .birthdayImage{
+        width:200px;
+        max-height:140px;
+    }
+
+}
+
+
+/* MAŁY TELEFON */
+
+@media(max-width:450px){
+
+    .character{
+        width:280px;
+        height:280px;
+    }
+
+    .game h1{
+        font-size:32px;
+    }
+
+    .hint{
+        font-size:15px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- GÓRNY PASEK -->
+<!-- ========================= -->
+
+<header>
+
+    <div class="logo">
+        Zir081 Mini Game
+    </div>
+
+    <div class="gems">
+
+        <img
+            src="gem.png"
+            class="gem"
+        >
+
+        <span id="gems">0</span>
+
+    </div>
+
+</header>
+
+
+<!-- ========================= -->
+<!-- GRA + SKLEP -->
+<!-- ========================= -->
+
+<div class="layout">
+
+
+    <!-- GRA -->
+
+    <section class="game">
+
+        <h1 id="stage">
+            SPIKE
+        </h1>
+
+        <div class="hint">
+            Klikaj postać, żeby zdobywać gemy!
+        </div>
+
+        <img
+            id="character"
+            class="character"
+            src="spike.png"
+            draggable="false"
+        >
+
+        <div class="power">
+
+            +
+
+            <span id="power">
+                1
+            </span>
+
+            <img
+                src="gem.png"
+                class="gem"
+            >
+
+            / klik
+
+        </div>
+
+    </section>
+
+
+    <!-- SKLEP -->
+
+    <aside class="shop">
+
+        <h2>🛒 SKLEP</h2>
+
+
+        <!-- CARL -->
+
+        <div class="item">
+
+            <div class="itemtop">
+
+                <img
+                    src="carl.png"
+                    class="mini"
+                >
+
+                <div>
+
+                    <strong>CARL</strong>
+
+                    <small>
+
+                        +2
+                        <img
+                            src="gem.png"
+                            class="gem"
+                        >
+                        / klik
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="price">
+
+                30
+
+                <img
+                    src="gem.png"
+                    class="gem"
+                >
+
+            </div>
+
+            <button
+                id="carl"
+                onclick="buy(30,'carl',2)"
+            >
+                ODBLOKUJ
+            </button>
+
+        </div>
+
+
+        <!-- RICO -->
+
+        <div class="item">
+
+            <div class="itemtop">
+
+                <img
+                    src="rico.png"
+                    class="mini"
+                >
+
+                <div>
+
+                    <strong>RICO</strong>
+
+                    <small>
+
+                        +5
+                        <img
+                            src="gem.png"
+                            class="gem"
+                        >
+                        / klik
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="price">
+
+                100
+
+                <img
+                    src="gem.png"
+                    class="gem"
+                >
+
+            </div>
+
+            <button
+                id="rico"
+                onclick="buy(100,'rico',5)"
+            >
+                ODBLOKUJ
+            </button>
+
+        </div>
+
+
+        <!-- GROM -->
+
+        <div class="item">
+
+            <div class="itemtop">
+
+                <img
+                    src="grom.png"
+                    class="mini"
+                >
+
+                <div>
+
+                    <strong>GROM</strong>
+
+                    <small>
+
+                        +10
+                        <img
+                            src="gem.png"
+                            class="gem"
+                        >
+                        / klik
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="price">
+
+                500
+
+                <img
+                    src="gem.png"
+                    class="gem"
+                >
+
+            </div>
+
+            <button
+                id="grom"
+                onclick="buy(500,'grom',10)"
+            >
+                ODBLOKUJ
+            </button>
+
+        </div>
+
+
+        <!-- TAJEMNICZY -->
+
+        <div class="item">
+
+            <div class="itemtop">
+
+                <div class="mystery">
+                    ❓
+                </div>
+
+                <div>
+
+                    <strong>TAJEMNICZY</strong>
+
+                    <small>
+                        coś specjalnego...
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="price">
+
+                999
+
+                <img
+                    src="gem.png"
+                    class="gem"
+                >
+
+            </div>
+
+            <button
+                id="finalBtn"
+                onclick="finale()"
+            >
+                KUP
+            </button>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- ZNAK ZAPYTANIA -->
+<!-- ========================= -->
+
+<div
+    class="secret-button"
+    onclick="openSecret()"
+>
+    ?
+</div>
+
+
+<!-- ========================= -->
+<!-- SECRET - NIERUCHOME -->
+<!-- ========================= -->
+
+<div
+    id="secretOverlay"
+    onclick="closeSecret()"
+>
+
+    <div class="secretHint">
+        kliknij, żeby zamknąć
+    </div>
+
+    <img
+        id="secretImage"
+        src="secret.png"
+        alt="Tajemnicze zdjęcie"
+    >
+
+</div>
+
+
+<!-- ========================= -->
+<!-- FINAŁ -->
+<!-- ========================= -->
+
+<div id="final">
+
+    <div class="finalbox">
+
+
+        <!-- TWÓJ OBRAZEK -->
+
+        <img
+            src="urodziny.png"
+            class="birthdayImage"
+        >
+
+
+        <h1>
+            18 URODZINY! 🥳
+        </h1>
+
+
+        <p>
+
+            Wszystkiego Najlepszego z Okazji 18 Urodzin!!!
+            ❤️
+
+            <br><br>
+
+            zyczenia bla bla bla tutaj potem napisze okok
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* ========================= */
+/* ZMIENNE GRY */
+/* ========================= */
+
+let gems = 0;
+
+let power = 1;
+
+let stage = "spike";
+
+
+const character =
+    document.getElementById("character");
+
+const gemsEl =
+    document.getElementById("gems");
+
+const powerEl =
+    document.getElementById("power");
+
+const stageEl =
+    document.getElementById("stage");
+
+
+/* ========================= */
+/* SKLEP */
+/* ========================= */
+
+function updateShop(){
+
+    document.getElementById("carl").disabled =
+        gems < 30;
+
+    document.getElementById("rico").disabled =
+        gems < 100;
+
+    document.getElementById("grom").disabled =
+        gems < 500;
+
+    document.getElementById("finalBtn").disabled =
+        gems < 999;
+
+}
+
+
+/* ========================= */
+/* LICZNIK */
+/* ========================= */
+
+function updateCounter(){
+
+    gemsEl.textContent =
+        gems;
+
+    powerEl.textContent =
+        power;
+
+}
+
+
+/* ========================= */
+/* POSTAĆ */
+/* ========================= */
+
+function renderCharacter(){
+
+    stageEl.textContent =
+        stage.toUpperCase();
+
+    character.src =
+        stage + ".png";
+
+}
+
+
+/* ========================= */
+/* RENDER */
+/* ========================= */
+
+function render(){
+
+    updateCounter();
+
+    updateShop();
+
+    renderCharacter();
+
+}
+
+
+/* ========================= */
+/* KLIKANIE POSTACI */
+/* ========================= */
+
+character.addEventListener(
+    "click",
+    function(e){
+
+        gems += power;
+
+        updateCounter();
+
+        updateShop();
+
+
+        const f =
+            document.createElement("div");
+
+
+        f.className =
+            "float";
+
+
+        f.innerHTML =
+            "+" +
+            power +
+            ' <img src="gem.png" class="gem">';
+
+
+        f.style.left =
+            e.clientX + "px";
+
+
+        f.style.top =
+            e.clientY + "px";
+
+
+        document.body.appendChild(f);
+
+
+        setTimeout(function(){
+
+            f.remove();
+
+        },600);
+
+    }
+);
+
+
+/* ========================= */
+/* KUPOWANIE POSTACI */
+/* ========================= */
+
+function buy(
+    cost,
+    name,
+    newPower
+){
+
+    if(gems < cost){
+
+        return;
+
+    }
+
+
+    gems -= cost;
+
+    power =
+        newPower;
+
+    stage =
+        name;
+
+
+    updateCounter();
+
+    updateShop();
+
+    renderCharacter();
+
+}
+
+
+/* ========================= */
+/* FINAŁ */
+/* ========================= */
+
+function finale(){
+
+    if(gems < 999){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "final"
+    ).style.display =
+        "flex";
+
+
+    confetti();
+
+}
+
+
+/* ========================= */
+/* SECRET
+   TYLKO OTWIERANIE/ZAMYKANIE
+   BEZ ŻADNEGO DVD
+========================= */
+
+function openSecret(){
+
+    document.getElementById(
+        "secretOverlay"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeSecret(){
+
+    document.getElementById(
+        "secretOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+/* ========================= */
+/* KONFETTI */
+/* ========================= */
+
+function confetti(){
+
+    const canvas =
+        document.createElement("canvas");
+
+
+    canvas.style.position =
+        "fixed";
+
+    canvas.style.inset =
+        "0";
+
+    canvas.style.pointerEvents =
+        "none";
+
+    canvas.style.zIndex =
+        "6000";
+
+
+    document.body.appendChild(canvas);
+
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+
+    const pieces = [];
+
+
+    for(
+        let i = 0;
+        i < 250;
+        i++
+    ){
+
+        pieces.push({
+
+            x:
+                Math.random() *
+                canvas.width,
+
+            y:
+                -20,
+
+            size:
+                Math.random() *
+                10 + 5,
+
+            speed:
+                Math.random() *
+                5 + 2,
+
+            drift:
+                (Math.random()-.5)*3,
+
+            rotation:
+                Math.random()*360
+
+        });
+
+    }
+
+
+    function draw(){
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        pieces.forEach(
+            function(p){
+
+                p.y +=
+                    p.speed;
+
+                p.x +=
+                    p.drift;
+
+                p.rotation +=
+                    5;
+
+
+                ctx.save();
+
+
+                ctx.translate(
+                    p.x,
+                    p.y
+                );
+
+
+                ctx.rotate(
+                    p.rotation *
+                    Math.PI /
+                    180
+                );
+
+
+                ctx.fillStyle =
+                    "hsl(" +
+                    Math.random()*360 +
+                    ",90%,60%)";
+
+
+                ctx.fillRect(
+
+                    -p.size/2,
+                    -p.size/2,
+                    p.size,
+                    p.size
+
+                );
+
+
+                ctx.restore();
+
+            }
+        );
+
+
+        requestAnimationFrame(draw);
+
+    }
+
+
+    draw();
+
+}
+
+
+/* ========================= */
+/* START GRY */
+/* ========================= */
+
+render();
+
+</script>
+
+</body>
+</html>
