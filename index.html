@@ -3,22 +3,42 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Zir081 Mini Game</title>
 
+
 <style>
+
+/* ========================= */
+/* PODSTAWY */
+/* ========================= */
 
 *{
     box-sizing:border-box;
 }
 
 body{
+
     margin:0;
+
     min-height:100vh;
+
     font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,red,green);
+
+    background:
+        linear-gradient(
+            135deg,
+            red,
+            green
+        );
+
     background-attachment:fixed;
+
     color:white;
 }
 
@@ -28,37 +48,66 @@ body{
 /* ========================= */
 
 header{
+
     height:80px;
+
     background:rgba(2,10,30,.75);
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     position:relative;
+
     padding:0 25px;
-    box-shadow:0 3px 15px rgba(0,0,0,.4);
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.4);
+
     backdrop-filter:blur(8px);
 }
 
 .logo{
+
     font-size:36px;
+
     font-weight:900;
 }
 
+
+/* ========================= */
+/* GEMY */
+/* ========================= */
+
 .gems{
+
     position:absolute;
+
     right:25px;
+
     top:50%;
+
     transform:translateY(-50%);
+
     display:flex;
+
     align-items:center;
+
     gap:8px;
+
     font-size:32px;
+
     font-weight:900;
 }
 
 .gem{
+
     width:30px;
+
     height:30px;
+
     object-fit:contain;
 }
 
@@ -68,11 +117,17 @@ header{
 /* ========================= */
 
 .layout{
+
     max-width:1200px;
+
     margin:25px auto;
+
     padding:0 20px;
+
     display:grid;
+
     grid-template-columns:1fr 310px;
+
     gap:25px;
 }
 
@@ -82,59 +137,97 @@ header{
 /* ========================= */
 
 .game{
+
     min-height:700px;
+
     background:rgba(3,8,23,.82);
+
     border-radius:24px;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
+
     position:relative;
+
     overflow:hidden;
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.3);
 }
 
 .game h1{
-    margin:0 0 12px;
+
+    margin:
+        0 0 12px;
+
     font-size:44px;
+
     font-weight:900;
 }
 
 .hint{
+
     opacity:.75;
+
     margin-bottom:20px;
+
     font-size:21px;
 }
 
 .character{
+
     width:400px;
+
     height:400px;
+
     object-fit:contain;
+
     cursor:pointer;
+
     user-select:none;
+
     transition:.12s;
-    filter:drop-shadow(0 15px 20px rgba(0,0,0,.5));
+
+    filter:
+        drop-shadow(
+            0 15px 20px rgba(0,0,0,.5)
+        );
 }
 
 .character:hover{
+
     transform:scale(1.04);
 }
 
 .character:active{
+
     transform:scale(.94);
 }
 
 .power{
+
     margin-top:18px;
+
     font-size:28px;
+
     font-weight:900;
+
     display:flex;
+
     align-items:center;
+
     gap:5px;
 }
 
 .power .gem{
+
     width:32px;
+
     height:32px;
 }
 
@@ -144,85 +237,135 @@ header{
 /* ========================= */
 
 .shop{
+
     background:rgba(3,8,23,.82);
+
     border-radius:24px;
+
     padding:18px;
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.3);
 }
 
 .shop h2{
-    margin:0 0 18px;
+
+    margin:
+        0 0 18px;
+
     font-size:26px;
 }
 
 .item{
-    background:rgba(20,30,55,.8);
+
+    background:
+        rgba(20,30,55,.8);
+
     border-radius:18px;
+
     padding:14px;
+
     margin-bottom:14px;
 }
 
 .itemtop{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
 }
 
 .mini{
+
     width:58px;
+
     height:58px;
+
     object-fit:contain;
+
     background:#17233c;
+
     border-radius:12px;
 }
 
 .item strong{
+
     display:block;
+
     font-size:17px;
 }
 
 .item small{
+
     display:block;
+
     margin-top:4px;
+
     color:#b9c8dc;
+
     font-size:14px;
 }
 
 .price{
+
     margin-top:10px;
+
     font-size:17px;
+
     font-weight:900;
+
     display:flex;
+
     align-items:center;
+
     gap:5px;
 }
 
 .price .gem{
+
     width:19px;
+
     height:19px;
 }
 
 button{
+
     width:100%;
+
     margin-top:10px;
+
     border:0;
+
     border-radius:11px;
+
     padding:13px;
+
     background:#2563a6;
+
     color:white;
+
     font-weight:900;
+
     cursor:pointer;
+
     font-size:14px;
+
     transition:.15s;
 }
 
 button:hover:not(:disabled){
+
     background:#3186d1;
+
     transform:translateY(-1px);
 }
 
 button:disabled{
+
     opacity:.45;
+
     cursor:not-allowed;
 }
 
@@ -232,13 +375,21 @@ button:disabled{
 /* ========================= */
 
 .mystery{
+
     width:58px;
+
     height:58px;
+
     border-radius:12px;
+
     background:#17233c;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:32px;
 }
 
@@ -248,31 +399,45 @@ button:disabled{
 /* ========================= */
 
 .float{
+
     position:fixed;
+
     pointer-events:none;
+
     font-size:22px;
+
     font-weight:900;
-    animation:floatup .6s ease-out forwards;
+
+    animation:
+        floatup .6s ease-out forwards;
+
     z-index:2000;
 }
 
 .float .gem{
+
     width:20px;
+
     height:20px;
 }
 
 @keyframes floatup{
 
     from{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
     }
 
     to{
-        opacity:0;
-        transform:translateY(-70px);
-    }
 
+        opacity:0;
+
+        transform:
+            translateY(-70px);
+    }
 }
 
 
@@ -281,27 +446,153 @@ button:disabled{
 /* ========================= */
 
 .secret-button{
+
     position:fixed;
+
     left:15px;
+
     bottom:15px;
+
     width:40px;
+
     height:40px;
+
     border-radius:50%;
-    background:rgba(3,8,23,.95);
-    border:2px solid white;
+
+    background:
+        rgba(3,8,23,.95);
+
+    border:
+        2px solid white;
+
     color:white;
+
     font-size:20px;
+
     font-weight:900;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     cursor:pointer;
+
     z-index:9998;
-    box-shadow:0 5px 20px rgba(0,0,0,.5);
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.5);
 }
 
 .secret-button:hover{
+
     transform:scale(1.12);
+
+    background:#2563a6;
+}
+
+
+/* ========================= */
+/* LUPA */
+/* ========================= */
+
+.code-button{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    background:#111c35;
+
+    border:4px solid white;
+
+    color:white;
+
+    font-size:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:2147483646;
+
+    box-shadow:
+        0 5px 30px rgba(0,0,0,.8);
+
+    user-select:none;
+}
+
+.code-button:hover{
+
+    transform:scale(1.1);
+
+    background:#2563a6;
+}
+
+
+/* ========================= */
+/* KOŁO FORTUNY - PRZYCISK */
+/* ========================= */
+
+.wheel-button{
+
+    position:fixed;
+
+    left:20px;
+
+    top:100px;
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:#111c35;
+
+    border:4px solid white;
+
+    color:white;
+
+    font-size:32px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:9998;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.7);
+
+    user-select:none;
+
+    padding:0;
+
+    margin:0;
+}
+
+.wheel-button:hover{
+
+    transform:scale(1.1);
+
     background:#2563a6;
 }
 
@@ -311,34 +602,58 @@ button:disabled{
 /* ========================= */
 
 #secretOverlay{
+
     display:none;
+
     position:fixed;
+
     inset:0;
+
     width:100vw;
+
     height:100vh;
+
     background:#050505;
+
     z-index:5000;
+
     cursor:pointer;
+
     align-items:center;
+
     justify-content:center;
 }
 
 #secretImage{
+
     width:90vw;
+
     height:90vh;
+
     object-fit:contain;
+
     user-select:none;
+
     pointer-events:none;
 }
 
 .secretHint{
+
     position:absolute;
+
     top:20px;
+
     left:50%;
-    transform:translateX(-50%);
+
+    transform:
+        translateX(-50%);
+
     font-size:15px;
+
     opacity:.5;
+
     z-index:2;
+
     pointer-events:none;
 }
 
@@ -348,70 +663,106 @@ button:disabled{
 /* ========================= */
 
 #codeOverlay{
+
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.82);
+
+    background:
+        rgba(0,0,0,.82);
+
     z-index:10000;
+
     align-items:center;
+
     justify-content:center;
 }
 
 .codeBox{
+
     width:380px;
+
     max-width:90%;
+
     background:#111c35;
+
     border-radius:25px;
+
     padding:30px;
+
     text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,.7);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.7);
+
     position:relative;
 }
 
 .codeBox h2{
-    margin:0 0 10px;
+
+    margin:
+        0 0 10px;
+
     font-size:30px;
 }
 
 .codeBox p{
+
     font-size:17px;
 }
 
 .codeBox input{
+
     width:100%;
+
     padding:14px;
+
     border:0;
+
     outline:none;
+
     border-radius:11px;
+
     font-size:17px;
+
     margin-top:8px;
 }
 
 .codeBox button{
+
     margin-top:12px;
 }
 
 #codeMessage{
+
     min-height:25px;
+
     font-weight:900;
+
     margin-bottom:0;
 }
 
 
 /* ========================= */
-/* X DO ZAMKNIĘCIA KODU */
+/* X KODU */
 /* ========================= */
 
 .closeCode{
+
     position:absolute !important;
 
     top:10px !important;
+
     right:10px !important;
 
     width:40px !important;
+
     height:40px !important;
 
     margin:0 !important;
+
     padding:0 !important;
 
     border-radius:50% !important;
@@ -425,15 +776,200 @@ button:disabled{
     font-size:20px !important;
 
     display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
 
-    cursor:pointer !important;
+    align-items:center !important;
+
+    justify-content:center !important;
 }
 
 .closeCode:hover{
+
     background:#d33 !important;
+
     transform:none !important;
+}
+
+
+/* ========================= */
+/* KOŁO FORTUNY */
+/* ========================= */
+
+#wheelOverlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.88);
+
+    z-index:15000;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.wheelBox{
+
+    width:650px;
+
+    max-width:95vw;
+
+    background:#111c35;
+
+    border-radius:28px;
+
+    padding:30px;
+
+    text-align:center;
+
+    position:relative;
+
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.8);
+}
+
+.closeWheel{
+
+    position:absolute !important;
+
+    top:12px !important;
+
+    right:12px !important;
+
+    width:42px !important;
+
+    height:42px !important;
+
+    margin:0 !important;
+
+    padding:0 !important;
+
+    border-radius:50% !important;
+
+    background:#243454 !important;
+
+    border:0 !important;
+
+    color:white !important;
+
+    font-size:20px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+}
+
+.closeWheel:hover{
+
+    background:#d33 !important;
+
+    transform:none !important;
+}
+
+.wheelBox h2{
+
+    margin:
+        0 0 20px;
+
+    font-size:34px;
+}
+
+.wheelWrapper{
+
+    position:relative;
+
+    width:500px;
+
+    max-width:90vw;
+
+    aspect-ratio:1/1;
+
+    margin:
+        0 auto;
+}
+
+#wheelCanvas{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+}
+
+.wheelPointer{
+
+    position:absolute;
+
+    top:-3px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:0;
+
+    height:0;
+
+    border-left:
+        18px solid transparent;
+
+    border-right:
+        18px solid transparent;
+
+    border-top:
+        32px solid white;
+
+    filter:
+        drop-shadow(
+            0 3px 5px rgba(0,0,0,.7)
+        );
+
+    z-index:5;
+}
+
+.spinButton{
+
+    width:220px !important;
+
+    margin:
+        22px auto 0 !important;
+
+    font-size:20px !important;
+
+    padding:16px !important;
+
+    border-radius:15px !important;
+
+    background:#d33 !important;
+}
+
+.spinButton:hover:not(:disabled){
+
+    background:#ef4444 !important;
+
+    transform:
+        scale(1.03) !important;
+}
+
+.wheelResult{
+
+    min-height:28px;
+
+    margin-top:15px;
+
+    font-size:20px;
+
+    font-weight:900;
 }
 
 
@@ -442,45 +978,73 @@ button:disabled{
 /* ========================= */
 
 #final{
+
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.88);
+
+    background:
+        rgba(0,0,0,.88);
+
     z-index:1000;
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
 }
 
 .finalbox{
+
     max-width:750px;
+
     width:100%;
+
     background:#111c35;
+
     border-radius:25px;
+
     padding:45px;
+
     text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,.6);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.6);
 }
 
 .birthdayImage{
+
     width:240px;
+
     max-width:80%;
+
     max-height:180px;
+
     object-fit:contain;
+
     margin-bottom:10px;
 }
 
 .finalbox .emoji{
+
     display:none;
 }
 
 .finalbox h1{
+
     font-size:42px;
-    margin:15px 0;
+
+    margin:
+        15px 0;
 }
 
 .finalbox p{
+
     font-size:21px;
+
     line-height:1.6;
 }
 
@@ -492,70 +1056,139 @@ button:disabled{
 @media(max-width:800px){
 
     header{
+
         height:70px;
     }
 
     .logo{
+
         font-size:25px;
     }
 
     .gems{
+
         right:15px;
+
         font-size:24px;
     }
 
     .gems .gem{
+
         width:24px;
+
         height:24px;
     }
 
     .layout{
+
         grid-template-columns:1fr;
     }
 
     .shop{
+
         order:2;
     }
 
     .game{
+
         min-height:600px;
     }
 
     .game h1{
+
         font-size:36px;
     }
 
     .hint{
+
         font-size:17px;
     }
 
     .character{
+
         width:320px;
+
         height:320px;
     }
 
     .power{
+
         font-size:24px;
     }
 
     .power .gem{
+
         width:28px;
+
         height:28px;
     }
 
     .secret-button{
+
         width:38px;
+
         height:38px;
+
         left:10px;
+
         bottom:10px;
+
         font-size:19px;
     }
 
-    .birthdayImage{
-        width:200px;
-        max-height:140px;
+    .code-button{
+
+        width:70px;
+
+        height:70px;
+
+        right:15px;
+
+        bottom:15px;
+
+        font-size:34px;
     }
 
+    .wheel-button{
+
+        width:60px;
+
+        height:60px;
+
+        left:15px;
+
+        top:85px;
+
+        font-size:29px;
+    }
+
+    .wheelBox{
+
+        padding:
+            25px 15px;
+    }
+
+    .wheelBox h2{
+
+        font-size:28px;
+    }
+
+    .wheelWrapper{
+
+        width:90vw;
+    }
+
+    .spinButton{
+
+        width:200px !important;
+    }
+
+    .birthdayImage{
+
+        width:200px;
+
+        max-height:140px;
+    }
 }
 
 
@@ -566,21 +1199,26 @@ button:disabled{
 @media(max-width:450px){
 
     .character{
+
         width:280px;
+
         height:280px;
     }
 
     .game h1{
+
         font-size:32px;
     }
 
     .hint{
+
         font-size:15px;
     }
 
 }
 
 </style>
+
 </head>
 
 
@@ -659,7 +1297,9 @@ button:disabled{
     </section>
 
 
+    <!-- ========================= -->
     <!-- SKLEP -->
+    <!-- ========================= -->
 
     <aside class="shop">
 
@@ -688,10 +1328,12 @@ button:disabled{
                     <small>
 
                         +2
+
                         <img
                             src="gem.png"
                             class="gem"
                         >
+
                         / klik
 
                     </small>
@@ -741,10 +1383,12 @@ button:disabled{
                     <small>
 
                         +5
+
                         <img
                             src="gem.png"
                             class="gem"
                         >
+
                         / klik
 
                     </small>
@@ -794,10 +1438,12 @@ button:disabled{
                     <small>
 
                         +10
+
                         <img
                             src="gem.png"
                             class="gem"
                         >
+
                         / klik
 
                     </small>
@@ -877,7 +1523,7 @@ button:disabled{
 
 
 <!-- ========================= -->
-<!-- PRZYCISK ? -->
+<!-- ? -->
 <!-- ========================= -->
 
 <div
@@ -885,6 +1531,30 @@ button:disabled{
     onclick="openSecret()"
 >
     ?
+</div>
+
+
+<!-- ========================= -->
+<!-- LUPA -->
+<!-- ========================= -->
+
+<div
+    class="code-button"
+    onclick="openCode()"
+>
+    🔎
+</div>
+
+
+<!-- ========================= -->
+<!-- KOŁO FORTUNY -->
+<!-- ========================= -->
+
+<div
+    class="wheel-button"
+    onclick="openWheel()"
+>
+    🎡
 </div>
 
 
@@ -957,6 +1627,60 @@ button:disabled{
 
 
 <!-- ========================= -->
+<!-- KOŁO FORTUNY -->
+<!-- ========================= -->
+
+<div id="wheelOverlay">
+
+    <div
+        class="wheelBox"
+        onclick="event.stopPropagation()"
+    >
+
+        <button
+            class="closeWheel"
+            onclick="closeWheel()"
+        >
+            ✕
+        </button>
+
+        <h2>
+            🎡 KOŁO FORTUNY
+        </h2>
+
+        <div class="wheelWrapper">
+
+            <canvas
+                id="wheelCanvas"
+                width="600"
+                height="600"
+            >
+            </canvas>
+
+            <div class="wheelPointer"></div>
+
+        </div>
+
+        <button
+            id="spinButton"
+            class="spinButton"
+            onclick="spinWheel()"
+        >
+            ZAKRĘĆ 🎡
+        </button>
+
+        <div
+            id="wheelResult"
+            class="wheelResult"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
 <!-- FINAŁ -->
 <!-- ========================= -->
 
@@ -1006,94 +1730,574 @@ let codeUsed = false;
 
 
 /* ========================= */
+/* BONUS 2X */
+/* ========================= */
+
+let doubleClicks = 0;
+
+
+/* ========================= */
 /* ELEMENTY */
 /* ========================= */
 
 const character =
-    document.getElementById("character");
+    document.getElementById(
+        "character"
+    );
 
 const gemsEl =
-    document.getElementById("gems");
+    document.getElementById(
+        "gems"
+    );
 
 const powerEl =
-    document.getElementById("power");
+    document.getElementById(
+        "power"
+    );
 
 const stageEl =
-    document.getElementById("stage");
+    document.getElementById(
+        "stage"
+    );
 
 
 /* ========================= */
-/* TWORZENIE LUPY */
+/* KOŁO */
 /* ========================= */
 
-function createCodeButton(){
+const wheelCanvas =
+    document.getElementById(
+        "wheelCanvas"
+    );
 
-    const button =
-        document.createElement("div");
-
-    button.id =
-        "REAL_CODE_BUTTON";
-
-    button.innerHTML =
-        "🔎";
-
-    button.onclick =
-        openCode;
+const wheelCtx =
+    wheelCanvas.getContext(
+        "2d"
+    );
 
 
-    button.style.position =
-        "fixed";
+const wheelPrizes = [
 
-    button.style.right =
-        "25px";
+    {
+        name:
+            "2× KLIKNIĘCIA",
 
-    button.style.bottom =
-        "25px";
+        type:
+            "double"
+    },
 
-    button.style.width =
-        "75px";
+    {
+        name:
+            "+50 💎",
 
-    button.style.height =
-        "75px";
+        type:
+            "plus50"
+    },
 
-    button.style.borderRadius =
-        "50%";
+    {
+        name:
+            "+25 💎",
 
-    button.style.background =
+        type:
+            "plus25"
+    },
+
+    {
+        name:
+            "NIC",
+
+        type:
+            "nothing"
+    },
+
+    {
+        name:
+            "-50 💎",
+
+        type:
+            "minus50"
+    }
+
+];
+
+
+let wheelRotation = 0;
+
+let wheelSpinning = false;
+
+
+/* ========================= */
+/* RYSOWANIE KOŁA */
+/* ========================= */
+
+function drawWheel(){
+
+    const center =
+        wheelCanvas.width / 2;
+
+    const radius =
+        250;
+
+    const section =
+        (Math.PI * 2) /
+        wheelPrizes.length;
+
+
+    wheelCtx.clearRect(
+        0,
+        0,
+        wheelCanvas.width,
+        wheelCanvas.height
+    );
+
+
+    wheelCtx.save();
+
+    wheelCtx.translate(
+        center,
+        center
+    );
+
+    wheelCtx.rotate(
+        wheelRotation
+    );
+
+
+    for(
+        let i = 0;
+        i < wheelPrizes.length;
+        i++
+    ){
+
+        const start =
+            -Math.PI / 2 +
+            i * section;
+
+        const end =
+            start + section;
+
+
+        wheelCtx.beginPath();
+
+        wheelCtx.moveTo(
+            0,
+            0
+        );
+
+        wheelCtx.arc(
+            0,
+            0,
+            radius,
+            start,
+            end
+        );
+
+        wheelCtx.closePath();
+
+
+        const colors = [
+
+            "#ef4444",
+            "#22c55e",
+            "#3b82f6",
+            "#f59e0b",
+            "#8b5cf6"
+
+        ];
+
+
+        wheelCtx.fillStyle =
+            colors[i];
+
+
+        wheelCtx.fill();
+
+
+        wheelCtx.lineWidth =
+            5;
+
+        wheelCtx.strokeStyle =
+            "#ffffff";
+
+        wheelCtx.stroke();
+
+
+        const middle =
+            start +
+            section / 2;
+
+
+        wheelCtx.save();
+
+
+        wheelCtx.rotate(
+            middle
+        );
+
+
+        wheelCtx.textAlign =
+            "center";
+
+        wheelCtx.textBaseline =
+            "middle";
+
+
+        wheelCtx.fillStyle =
+            "#ffffff";
+
+        wheelCtx.font =
+            "900 24px Arial";
+
+
+        wheelCtx.fillText(
+            wheelPrizes[i].name,
+            radius * .62,
+            0
+        );
+
+
+        wheelCtx.restore();
+
+    }
+
+
+    /* ŚRODEK KOŁA */
+
+    wheelCtx.beginPath();
+
+    wheelCtx.arc(
+        0,
+        0,
+        55,
+        0,
+        Math.PI * 2
+    );
+
+    wheelCtx.fillStyle =
         "#111c35";
 
-    button.style.border =
-        "4px solid white";
+    wheelCtx.fill();
 
-    button.style.color =
-        "white";
+    wheelCtx.lineWidth =
+        6;
 
-    button.style.fontSize =
-        "38px";
+    wheelCtx.strokeStyle =
+        "#ffffff";
 
-    button.style.display =
+    wheelCtx.stroke();
+
+
+    wheelCtx.fillStyle =
+        "#ffffff";
+
+    wheelCtx.font =
+        "900 32px Arial";
+
+    wheelCtx.textAlign =
+        "center";
+
+    wheelCtx.textBaseline =
+        "middle";
+
+    wheelCtx.fillText(
+        "🎡",
+        0,
+        0
+    );
+
+
+    wheelCtx.restore();
+
+}
+
+
+/* ========================= */
+/* OTWIERANIE KOŁA */
+/* ========================= */
+
+function openWheel(){
+
+    document.getElementById(
+        "wheelOverlay"
+    ).style.display =
         "flex";
 
-    button.style.alignItems =
-        "center";
+    document.getElementById(
+        "wheelResult"
+    ).textContent =
+        "";
 
-    button.style.justifyContent =
-        "center";
+    drawWheel();
 
-    button.style.cursor =
-        "pointer";
+}
 
-    button.style.zIndex =
-        "2147483647";
 
-    button.style.boxShadow =
-        "0 5px 30px rgba(0,0,0,.8)";
+/* ========================= */
+/* ZAMYKANIE KOŁA */
+/* ========================= */
 
-    button.style.userSelect =
+function closeWheel(){
+
+    document.getElementById(
+        "wheelOverlay"
+    ).style.display =
         "none";
 
+}
 
-    document.body.appendChild(button);
+
+/* ========================= */
+/* KRĘCENIE KOŁEM */
+/* ========================= */
+
+function spinWheel(){
+
+    if(wheelSpinning){
+
+        return;
+
+    }
+
+
+    wheelSpinning =
+        true;
+
+
+    document.getElementById(
+        "spinButton"
+    ).disabled =
+        true;
+
+
+    document.getElementById(
+        "wheelResult"
+    ).textContent =
+        "🎡 Kręci się...";
+
+
+    const randomPrize =
+        Math.floor(
+            Math.random() *
+            wheelPrizes.length
+        );
+
+
+    const section =
+        (Math.PI * 2) /
+        wheelPrizes.length;
+
+
+    const targetCenter =
+        randomPrize *
+        section +
+        section / 2;
+
+
+    const current =
+        wheelRotation %
+        (Math.PI * 2);
+
+
+    const desired =
+        (Math.PI * 2) -
+        targetCenter;
+
+
+    let difference =
+        desired - current;
+
+
+    if(difference < 0){
+
+        difference +=
+            Math.PI * 2;
+
+    }
+
+
+    const extraTurns =
+        Math.PI * 2 *
+        6;
+
+
+    const finalRotation =
+        wheelRotation +
+        extraTurns +
+        difference;
+
+
+    const startRotation =
+        wheelRotation;
+
+
+    const duration =
+        5000;
+
+
+    const startTime =
+        performance.now();
+
+
+    function animate(now){
+
+        const elapsed =
+            now -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed / duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                4
+            );
+
+
+        wheelRotation =
+            startRotation +
+            (
+                finalRotation -
+                startRotation
+            ) * eased;
+
+
+        drawWheel();
+
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                animate
+            );
+
+        }
+        else{
+
+            wheelRotation =
+                finalRotation;
+
+            drawWheel();
+
+            givePrize(
+                wheelPrizes[randomPrize]
+            );
+
+            wheelSpinning =
+                false;
+
+            document.getElementById(
+                "spinButton"
+            ).disabled =
+                false;
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* ========================= */
+/* NAGRODA */
+/* ========================= */
+
+function givePrize(prize){
+
+    const result =
+        document.getElementById(
+            "wheelResult"
+        );
+
+
+    if(prize.type === "double"){
+
+        doubleClicks +=
+            10;
+
+
+        result.innerHTML =
+            "🔥 <strong>2× KLIKNIĘCIA!</strong><br>" +
+            "Następne 10 kliknięć daje podwójne gemy!";
+
+    }
+
+
+    else if(prize.type === "plus50"){
+
+        gems +=
+            50;
+
+
+        updateCounter();
+
+        updateShop();
+
+
+        result.innerHTML =
+            "🎉 <strong>+50 💎</strong>";
+
+    }
+
+
+    else if(prize.type === "plus25"){
+
+        gems +=
+            25;
+
+
+        updateCounter();
+
+        updateShop();
+
+
+        result.innerHTML =
+            "🎉 <strong>+25 💎</strong>";
+
+    }
+
+
+    else if(prize.type === "nothing"){
+
+        result.innerHTML =
+            "😂 <strong>NIC XD</strong>";
+
+    }
+
+
+    else if(prize.type === "minus50"){
+
+        gems -=
+            50;
+
+
+        if(gems < 0){
+
+            gems = 0;
+
+        }
+
+
+        updateCounter();
+
+        updateShop();
+
+
+        result.innerHTML =
+            "💀 <strong>-50 💎</strong>";
+
+    }
 
 }
 
@@ -1109,15 +2313,18 @@ function updateShop(){
     ).disabled =
         gems < 30;
 
+
     document.getElementById(
         "rico"
     ).disabled =
         gems < 100;
 
+
     document.getElementById(
         "grom"
     ).disabled =
         gems < 500;
+
 
     document.getElementById(
         "finalBtn"
@@ -1152,7 +2359,8 @@ function renderCharacter(){
         stage.toUpperCase();
 
     character.src =
-        stage + ".png";
+        stage +
+        ".png";
 
 }
 
@@ -1180,7 +2388,23 @@ character.addEventListener(
     "click",
     function(e){
 
-        gems += power;
+        let clickPower =
+            power;
+
+
+        if(doubleClicks > 0){
+
+            clickPower *=
+                2;
+
+            doubleClicks--;
+
+        }
+
+
+        gems +=
+            clickPower;
+
 
         updateCounter();
 
@@ -1188,21 +2412,29 @@ character.addEventListener(
 
 
         const f =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         f.className =
             "float";
 
+
         f.innerHTML =
             "+" +
-            power +
+            clickPower +
             ' <img src="gem.png" class="gem">';
 
+
         f.style.left =
-            e.clientX + "px";
+            e.clientX +
+            "px";
+
 
         f.style.top =
-            e.clientY + "px";
+            e.clientY +
+            "px";
 
 
         document.body.appendChild(
@@ -1240,10 +2472,13 @@ function buy(
     }
 
 
-    gems -= cost;
+    gems -=
+        cost;
+
 
     power =
         newPower;
+
 
     stage =
         name;
@@ -1307,7 +2542,7 @@ function closeSecret(){
 
 
 /* ========================= */
-/* OTWIERANIE KODU */
+/* KOD */
 /* ========================= */
 
 function openCode(){
@@ -1344,10 +2579,6 @@ function openCode(){
 }
 
 
-/* ========================= */
-/* ZAMYKANIE KODU */
-/* ========================= */
-
 function closeCode(){
 
     document.getElementById(
@@ -1357,10 +2588,6 @@ function closeCode(){
 
 }
 
-
-/* ========================= */
-/* SPRAWDZANIE KODU */
-/* ========================= */
 
 function checkCode(){
 
@@ -1391,7 +2618,9 @@ function checkCode(){
 
     if(input === "zir081"){
 
-        gems += 100;
+        gems +=
+            100;
+
 
         codeUsed =
             true;
@@ -1406,6 +2635,7 @@ function checkCode(){
             "🎉 Kod poprawny! +100 💎";
 
     }
+
     else{
 
         message.textContent =
@@ -1512,8 +2742,10 @@ function confetti(){
                 p.y +=
                     p.speed;
 
+
                 p.x +=
                     p.drift;
+
 
                 p.rotation +=
                     5;
@@ -1544,8 +2776,11 @@ function confetti(){
                 ctx.fillRect(
 
                     -p.size/2,
+
                     -p.size/2,
+
                     p.size,
+
                     p.size
 
                 );
@@ -1575,7 +2810,7 @@ function confetti(){
 
 render();
 
-createCodeButton();
+drawWheel();
 
 </script>
 
